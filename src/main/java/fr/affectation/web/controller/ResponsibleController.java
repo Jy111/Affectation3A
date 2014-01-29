@@ -45,7 +45,7 @@ public class ResponsibleController {
 	@RequestMapping({"/", ""})
 	public String mainPage(Model model) {
 		if (configurationService.isRunning()){
-			return "redirect:/responsable/1";
+			return "responsable/selection";
 		}
 		else{
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();

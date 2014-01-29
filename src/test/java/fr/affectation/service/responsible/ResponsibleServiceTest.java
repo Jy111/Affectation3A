@@ -60,7 +60,8 @@ public class ResponsibleServiceTest {
 		}
 		Assert.assertEquals(20, responsibleService.findResponsibles().size());
 	}
-	
+
+
 	@Test
 	public void forWhichSpecialization(){
 		createAndSaveSpecialization("JobSector", "responsibleJS", "abbJs");
@@ -99,5 +100,11 @@ public class ResponsibleServiceTest {
 		specialization.setAbbreviation(abbreviation);
 		specializationService.save(specialization);
 	}
+    /*
+    @Test
+    public void
 
+
+
+    */
 }

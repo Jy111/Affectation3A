@@ -55,3 +55,30 @@ Config CAS:
 L'application se déploie sur /affectation3A (configuré dans le pom.xml). Si ce chemin est modifié, il est nécessaire de modifier :
 * la valeur du champ path dans le fichier src/main/webapp/WEB-INF/affectation-servlet.xml
 * remplacer /affectation3A par le vrai chemin dans src/main/webapp/css/select3.css
+
+
+***************************************************************
+BUG FOUND
+un admin peut affecter un prof/login à plusieurs parcours et filières.
+=> error 500 apres à la co du responsable
+Solutions possibles :
+   (1. Empecher l'affectation à plusieurs parcours/filière   )-> pas envisageable
+    2. Donner la possibilité de choisir le parcours voulu à la connexion du responsable
+    3. voire plus
+
+=> pas de message d'erreur après creation de deux parcours identiques mais un seul reste.
+
+-> penser à modifier la fonction findResponsibles dans impl.
+-> test, findResponsible() (peut etre à revoir)
+
+-> CustomUserDetailService : Raison du non choix du type de responsabilité!
+implique via CustomAuthenticationSuccessHandler
+
+Imposible de trouver l'endroit ou le login d'un responsable est ajouté automatiquement. La création d'un Jobsector et d'un ImprovementCourse se fait dans le AdminControllerJava
+
+
+-> voir dgeo pour l'adresse ne_pas_repondre@centrale-marseille.fr
+
+
+->/respons/choix => page qui dit coucou puis qui liste les parcours filières.
+->
