@@ -18,7 +18,14 @@
     <link href="${pageContext.request.contextPath}/css/bootstrap-responsive.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="alert alert-info"> Coucou </div>
+    <div class="container">
+        <c:forEach var="i" begin="0" end = "abbreviationSize" step="1">
+            <p>
+                abbreviation[i]
+            </p>
+        </c:forEach>
+
+    </div>
 
 </body>
 </html>

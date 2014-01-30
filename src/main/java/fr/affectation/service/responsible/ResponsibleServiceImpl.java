@@ -40,6 +40,25 @@ public class ResponsibleServiceImpl implements ResponsibleService {
 		}
 		return allResponsible;
 	}
+    @Override
+    @Transactional(readOnly =true)
+    public ArrayList<String> whichSpecialization(String login){
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(ImprovementCourse.class);
+        criteria.add(Restrictions.eq("responsibleLogin", login));
+        List improvementCourseList = criteria.list();
+        ArrayList<ImprovementCourse> improvementCourseListArray = new ArrayList<ImprovementCourse>(improvementCourseList.size());
+        improvementCourseListArray.addAll(improvementCourseList);
+        ArrayList<String> improvementCourseListAbbreviation = new ArrayList<String>();
+        int count = 0;
+        while (improvementCourseList.get(count) != null){
+            improvementCourseListAbbreviation.add(improvementCourseListArray.get(count).getAbbreviation());
+            count +=1;
+        }
+        return improvementCourseListAbbreviation;
+
+    }
+
 
 	@Override
 	@Transactional(readOnly = true)
@@ -73,7 +92,8 @@ public class ResponsibleServiceImpl implements ResponsibleService {
 			return Specialization.JOB_SECTOR;
 		}
 	}
-	
+
+
 	@Override
 	@Transactional(readOnly = true)
 	public boolean isResponsible(String login){

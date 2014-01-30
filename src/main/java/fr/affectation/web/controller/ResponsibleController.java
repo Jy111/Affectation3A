@@ -1,5 +1,6 @@
 package fr.affectation.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,7 +46,13 @@ public class ResponsibleController {
 	@RequestMapping({"/", ""})
 	public String mainPage(Model model) {
 		if (configurationService.isRunning()){
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String login = auth.getName();
+            ArrayList<String> abbreviation = responsibleService.whichSpecialization(login);
+            int abbreviationSize = abbreviation.size();
+
 			return "responsable/selection";
+
 		}
 		else{
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
