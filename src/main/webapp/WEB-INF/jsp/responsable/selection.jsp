@@ -10,6 +10,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,9 +20,11 @@
 </head>
 <body>
     <div class="container">
-        <c:forEach var="i" begin="0" end = "abbreviationSize" step="1">
+
+        <c:forEach var="abbreviation" items="${allAbbreviations}" varStatus="status">
             <p>
-                abbreviation[i]
+
+
             </p>
         </c:forEach>
 

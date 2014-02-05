@@ -48,8 +48,11 @@ public class ResponsibleController {
 		if (configurationService.isRunning()){
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String login = auth.getName();
+
             ArrayList<String> abbreviation = responsibleService.whichSpecialization(login);
             int abbreviationSize = abbreviation.size();
+            model.addAttribute("allAbbreviations", abbreviation);
+            model.addAttribute("abbreviationListSize", abbreviationSize);
 
 			return "responsable/selection";
 

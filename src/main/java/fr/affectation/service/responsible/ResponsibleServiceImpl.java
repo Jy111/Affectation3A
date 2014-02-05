@@ -50,13 +50,11 @@ public class ResponsibleServiceImpl implements ResponsibleService {
         ArrayList<ImprovementCourse> improvementCourseListArray = new ArrayList<ImprovementCourse>(improvementCourseList.size());
         improvementCourseListArray.addAll(improvementCourseList);
         ArrayList<String> improvementCourseListAbbreviation = new ArrayList<String>();
-        int count = 0;
-        while (improvementCourseList.get(count) != null){
+
+        for(int count =0; count<improvementCourseList.size(); count++){
             improvementCourseListAbbreviation.add(improvementCourseListArray.get(count).getAbbreviation());
-            count +=1;
         }
         return improvementCourseListAbbreviation;
-
     }
 
 
