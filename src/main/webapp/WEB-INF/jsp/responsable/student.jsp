@@ -21,19 +21,19 @@
 				<ul class="nav nav-list">
 					<li class="nav-header">${specialization.abbreviation}</li>
 					<c:forEach var="i" begin="1" end="5" step="1">
-						<li><a href="${pageContext.request.contextPath}/responsable/${i}">Choix ${i}</a></li>
+						<li><a href="${pageContext.request.contextPath}/responsable/${specialization.abbreviation}/${i}">Choix ${i}</a></li>
 					</c:forEach>
 
 					<li class="nav-header">Statistiques</li>
-					<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/choice1">Parcours/filières</a></li>
+					<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/${specialization.abbreviation}/choice1">Parcours/filières</a></li>
 					<c:choose>
 						<c:when test="${specialization.type == 'JobSector' }">
-							<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/repartition-other-choice2">Répartition filières</a></li>
-							<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/inverse-repartition">Répartition parcours</a></li>
+							<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/${specialization.abbreviation}/repartition-other-choice2">Répartition filières</a></li>
+							<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/${specialization.abbreviation}/inverse-repartition">Répartition parcours</a></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/repartition-other-choice2">Répartition parcours</a></li>
-							<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/inverse-repartition">Répartition filières</a></li>
+							<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/${specialization.abbreviation}/repartition-other-choice2">Répartition parcours</a></li>
+							<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/${specialization.abbreviation}/inverse-repartition">Répartition filières</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>

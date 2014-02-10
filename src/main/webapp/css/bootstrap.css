@@ -164,7 +164,11 @@ body {
   font-size: 14px;
   line-height: 20px;
   color: #333333;
-  background-color: #ffffff;
+  background: #ffffff url('../img/logo_carre_ecm.png') no-repeat center center fixed;
+
+
+
+
 }
 
 a {
@@ -796,8 +800,8 @@ dd {
 hr {
   margin: 20px 0;
   border: 0;
-  border-top: 1px solid #eeeeee;
-  border-bottom: 1px solid #ffffff;
+  border-top: 1px solid #2d2d2d;
+  border-bottom: 0px solid #8f8f8f;
 }
 
 abbr[title],

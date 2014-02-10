@@ -19,15 +19,16 @@
     <link href="${pageContext.request.contextPath}/css/bootstrap-responsive.min.css" rel="stylesheet">
 </head>
 <body>
+
     <div class="container">
-
-        <c:forEach var="abbreviation" items="${allAbbreviations}" varStatus="status">
-            <p>
-
-
-            </p>
-        </c:forEach>
-
+        <tags:headerResponsible title="Selection"></tags:headerResponsible>
+        <ul class="nav nav-pills nav-stacked span3">
+            <c:forEach var="abbreviation" items="${allAbbreviations}" varStatus="status">
+                <p>
+                    <li><a href ="${pageContext.request.contextPath}/responsable/${abbreviation}/1" >${abbreviation}</a>  </li>
+                </p>
+            </c:forEach>
+        </ul>
     </div>
 
 </body>

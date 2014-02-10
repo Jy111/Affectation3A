@@ -50,9 +50,9 @@ public class ResponsibleController {
             String login = auth.getName();
 
             ArrayList<String> abbreviation = responsibleService.whichSpecialization(login);
-            int abbreviationSize = abbreviation.size();
+            //int abbreviationSize = abbreviation.size();
             model.addAttribute("allAbbreviations", abbreviation);
-            model.addAttribute("abbreviationListSize", abbreviationSize);
+            //model.addAttribute("abbreviationListSize", abbreviationSize);
 
 			return "responsable/selection";
 
@@ -68,13 +68,14 @@ public class ResponsibleController {
 		}
 	}
 
-	@RequestMapping("/{order}")
-	public String showResultForChoice(@PathVariable int order, Model model) {
+	@RequestMapping("/{abbreviation}/{order}")
+	public String showResultForChoice(@PathVariable int order, @PathVariable String abbreviation, Model model) {
 		if (configurationService.isRunning()) {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String login = auth.getName();
-			String abbreviation = responsibleService.forWhichSpecialization(login);
-			Specialization specialization = responsibleService.forWhichSpecializationType(login) == Specialization.IMPROVEMENT_COURSE ? specializationService
+			//String abbreviation = responsibleService.forWhichSpecialization(login);
+            //Specialization specialization = specializationService.getImprovementCourseByAbbreviation(abbreviation);
+			Specialization specialization = responsibleService.whichSpecializationType(login) == Specialization.IMPROVEMENT_COURSE ? specializationService
 					.getImprovementCourseByAbbreviation(abbreviation) : specializationService.getJobSectorByAbbreviation(abbreviation);
 			model.addAttribute("specialization", specialization);
 			if (configurationService.isSubmissionAvailable()) {
@@ -103,7 +104,7 @@ public class ResponsibleController {
 	String inverseValidation(@RequestParam String login, HttpServletRequest request) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String loginRespo = auth.getName();
-		int type = responsibleService.forWhichSpecializationType(loginRespo);
+		int type = responsibleService.whichSpecializationType(loginRespo);
 		boolean validated = true;
 		if (type == Specialization.IMPROVEMENT_COURSE){	
 			validated = validationService.isValidatedIc(login);
@@ -133,13 +134,13 @@ public class ResponsibleController {
 		}
 	}
 
-	@RequestMapping("/run/statistics/choice{choice}")
-	public String pieChartsForChoice(@PathVariable int choice, Model model) {
+	@RequestMapping("/run/statistics/{abbreviation}/choice{choice}")
+	public String pieChartsForChoice(@PathVariable int choice, @PathVariable String abbreviation, Model model) {
 		if (configurationService.isRunning()) {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String loginRespo = auth.getName();
-			String abbreviation = responsibleService.forWhichSpecialization(loginRespo);
-			Specialization specialization = responsibleService.forWhichSpecializationType(loginRespo) == Specialization.IMPROVEMENT_COURSE ? specializationService
+			//String abbreviation = responsibleService.forWhichSpecialization(loginRespo);
+			Specialization specialization = responsibleService.whichSpecializationType(loginRespo) == Specialization.IMPROVEMENT_COURSE ? specializationService
 					.getImprovementCourseByAbbreviation(abbreviation) : specializationService.getJobSectorByAbbreviation(abbreviation);
 			model.addAttribute("specialization", specialization);
 			model.addAttribute("choiceNumber", choice);
@@ -153,13 +154,13 @@ public class ResponsibleController {
 		}
 	}
 
-	@RequestMapping("/run/statistics/repartition-other-choice{choice}")
-	public String pieChartsForOtherChoice(@PathVariable int choice, Model model) {
+	@RequestMapping("/run/statistics/{abbreviation}/repartition-other-choice{choice}")
+	public String pieChartsForOtherChoice(@PathVariable int choice, @PathVariable String abbreviation, Model model) {
 		if (configurationService.isRunning()) {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String loginRespo = auth.getName();
-			String abbreviation = responsibleService.forWhichSpecialization(loginRespo);
-			Specialization specialization = responsibleService.forWhichSpecializationType(loginRespo) == Specialization.IMPROVEMENT_COURSE ? specializationService
+			//String abbreviation = responsibleService.forWhichSpecialization(loginRespo);
+			Specialization specialization = responsibleService.whichSpecializationType(loginRespo) == Specialization.IMPROVEMENT_COURSE ? specializationService
 					.getImprovementCourseByAbbreviation(abbreviation) : specializationService.getJobSectorByAbbreviation(abbreviation);
 			model.addAttribute("specialization", specialization);
 			model.addAttribute("choiceNumber", choice);
@@ -170,13 +171,13 @@ public class ResponsibleController {
 		}
 	}
 
-	@RequestMapping("/run/statistics/inverse-repartition")
-	public String pieChartsForInverseRepartition(Model model) {
+	@RequestMapping("/run/statistics/{abbreviation}/inverse-repartition")
+	public String pieChartsForInverseRepartition(@PathVariable String abbreviation, Model model) {
 		if (configurationService.isRunning()) {
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String loginRespo = auth.getName();
-			String abbreviation = responsibleService.forWhichSpecialization(loginRespo);
-			Specialization specialization = responsibleService.forWhichSpecializationType(loginRespo) == Specialization.IMPROVEMENT_COURSE ? specializationService
+			//String abbreviation = responsibleService.forWhichSpecialization(loginRespo);
+			Specialization specialization = responsibleService.whichSpecializationType(loginRespo) == Specialization.IMPROVEMENT_COURSE ? specializationService
 					.getImprovementCourseByAbbreviation(abbreviation) : specializationService.getJobSectorByAbbreviation(abbreviation);
 			model.addAttribute("specialization", specialization);
 			model.addAttribute("inverseSpecializations", studentService.findInverseRepartition(specialization));

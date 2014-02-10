@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Affectation parcours/filiÃ¨re 3Ã¨me annÃ©e Centrale Marseille</title>
+    <title>Affectation parcours/filière 3ème année Centrale Marseille</title>
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/bootstrap-responsive.min.css" rel="stylesheet">
 
@@ -40,7 +40,7 @@
         <div class="row">
             <div class="span12">
                 <c:if test="${not empty successIc}">
-                    <div id="infoMessage" class="alert alert-info hide">${successIc}</div>
+                    <div id="infoMessage" class="alert alert-info">${successIc}</div>
                 </c:if>
                 <c:if test="${not empty successJs}">
                     <div class="alert alert-info">${successJs}</div>
@@ -49,20 +49,20 @@
             <div class="span4">
                 <center>
                     <h2>
-                        Parcours
-                        <br /> <a href="${pageContext.request.contextPath}/admin/config/new/improvement-course" class="btn btn-info"><i class="icon-white icon-plus"></i></a>
+                        Parcours <a href="${pageContext.request.contextPath}/admin/config/new/improvement-course" class="btn btn-info"><i class="icon-white icon-plus"></i></a>
                     </h2>
                 </center>
-                <br />
+
                 <c:forEach var="superPa" items="${paAvailable}">
+                    <br/>
                     <h4>${superPa[0].superIc}</h4>
                     <c:forEach var="pa" items="${superPa}">
                         ${pa.stringForForm}
-                        <br />
                         <div class="btn-group pull-right">
-                            <a href="${pageContext.request.contextPath}/admin/common/edit/ic/${pa.abbreviation}" class="btn btn-primary btn-small">Modfier</a>
-                            <a href="${pageContext.request.contextPath}/admin/config/delete/improvement-course/${pa.abbreviation}" class="btn btn-danger btn-small">Supprimer</a>
+                            <a href="${pageContext.request.contextPath}/admin/common/edit/ic/${pa.abbreviation}" class="btn btn-primary btn-small"><i class="icon-white icon-pencil"></i></a>
+                            <a href="${pageContext.request.contextPath}/admin/config/delete/improvement-course/${pa.abbreviation}" class="btn btn-danger btn-small"><i class="icon-white icon-remove"></i></a>
                         </div>
+
                         <br />
                         <br />
                     </c:forEach>
@@ -71,63 +71,66 @@
             <div class="span4">
                 <center>
                     <h2>
-                        FiliÃ¨res
-                        <br /> <a href="${pageContext.request.contextPath}/admin/config/new/job-sector" class="btn btn-info"><i class="icon-white icon-plus"></i></a>
+                        Filières <a href="${pageContext.request.contextPath}/admin/config/new/job-sector" class="btn btn-info"><i class="icon-white icon-plus"></i></a>
                     </h2>
                 </center>
-                <br />
+
 
                 <c:forEach var="fm" items="${fmAvailable}">
+                    <br/>
                     ${fm.stringForForm}
-                    <br />
                     <div class="btn-group pull-right">
-                        <a href="${pageContext.request.contextPath}/admin/common/edit/js/${fm.abbreviation}" class="btn btn-primary btn-small">Modfier</a>
-                        <a href="${pageContext.request.contextPath}/admin/config/delete/job-sector/${fm.abbreviation}" class="btn btn-danger btn-small">Supprimer</a>
+                        <a href="${pageContext.request.contextPath}/admin/common/edit/js/${fm.abbreviation}" class="btn btn-primary btn-small"><i class="icon-white icon-pencil"></i></a>
+                        <a href="${pageContext.request.contextPath}/admin/config/delete/job-sector/${fm.abbreviation}" class="btn btn-danger btn-small"><i class="icon-white icon-remove"></i></a>
                     </div>
+
                     <br />
                     <br />
                 </c:forEach>
             </div>
-            <div class="span4">
-                <h2>Dates</h2>
-                <c:if test="${not empty alertMessage}">
-                    <div class="alert alert-error">${alertMessage}</div>
-                </c:if>
-                <label for="firstEmail">Envoi du premier mail de rappel <form:errors path="firstEmail">
+            <center>
+                <div class="span4">
+                    <center><h2>Dates</h2></center>
+                    <br/>
+                    <c:if test="${not empty alertMessage}">
+                        <div class="alert alert-error fade in">${alertMessage}</div>
+                    </c:if>
+                    <label for="firstEmail">Envoi du premier mail de rappel <form:errors path="firstEmail">
+                        <div class="alert alert-error">La date n'a pas le bon format.</div>
+                    </form:errors>
+                    </label>
+                    <div class="input-append">
+                        <form:input id="firstEmail" path="firstEmail" class="span2" value="${now}" />
+                        <!--<span class="add-on">dd/MM/yyyy HH:mm</span>        -->
+                    </div>
+                    <br /> <label for="secondEmail">Envoi du second mail de rappel <form:errors path="secondEmail">
                     <div class="alert alert-error">La date n'a pas le bon format.</div>
                 </form:errors>
                 </label>
-                <div class="input-append">
-                    <form:input id="firstEmail" path="firstEmail" class="span2" value="${now}" />
-                    <span class="add-on">dd/MM/yyyy HH:mm</span>
-                </div>
-                <br /> <label for="secondEmail">Envoi du second mail de rappel <form:errors path="secondEmail">
-                <div class="alert alert-error">La date n'a pas le bon format.</div>
-            </form:errors>
-            </label>
-                <div class="input-append">
-                    <form:input id="secondEmail" path="secondEmail" class="span2" value="${now}" />
-                    <span class="add-on">dd/MM/yyyy HH:mm</span>
-                </div>
-                <br /> <label for="endSubmission">Fin des soumissions <form:errors path="endSubmission">
-                <div class="alert alert-error">La date n'a pas le bon format.</div>
-            </form:errors>
-            </label>
-                <div class="input-append">
-                    <form:input id="endSubmission" path="endSubmission" class="span2" value="${now}" />
-                    <span class="add-on">dd/MM/yyyy HH:mm</span>
-                </div>
+                    <div class="input-append">
+                        <form:input id="secondEmail" path="secondEmail" class="span2" value="${now}" />
+                        <!--<span class="add-on">dd/MM/yyyy HH:mm</span>        -->
+                    </div>
+                    <br /> <label for="endSubmission">Fin des soumissions <form:errors path="endSubmission">
+                    <div class="alert alert-error">La date n'a pas le bon format.</div>
+                </form:errors>
+                </label>
+                    <div class="input-append">
+                        <form:input id="endSubmission" path="endSubmission" class="span2" value="${now}" />
+                        <!--<span class="add-on">dd/MM/yyyy HH:mm</span>        -->
+                    </div>
 
-                <br /> <label for="endValidation">Fin de la validation par les responsables <form:errors path="endValidation">
-                <div class="alert alert-error">La date n'a pas le bon format.</div>
-            </form:errors>
-            </label>
-                <div class="input-append">
-                    <form:input id="endValidation" path="endValidation" class="span2" value="${now}" />
-                    <span class="add-on">dd/MM/yyyy HH:mm</span>
+                    <br /> <label for="endValidation">Fin de la validation par les responsables <form:errors path="endValidation">
+                    <div class="alert alert-error">La date n'a pas le bon format.</div>
+                </form:errors>
+                </label>
+                    <div class="input-append">
+                        <form:input id="endValidation" path="endValidation" class="span2" value="${now}" />
+                        <!--<span class="add-on">dd/MM/yyyy HH:mm</span>        -->
+                    </div>
+                    <br /> <br />
                 </div>
-                <br /> <br />
-            </div>
+            </center>
         </div>
     </form:form>
 </div>
@@ -139,16 +142,16 @@
                 {
                     timeFormat : 'HH:mm',
                     closeText : 'Fermer',
-                    prevText : 'PrÃ©cÃ©dent',
+                    prevText : 'Précédent',
                     nextText : 'Suivant',
                     currentText : 'Aujourd\'hui',
-                    monthNames : [ 'Janvier', 'FÃ©vrier', 'Mars',
-                        'Avril', 'Mai', 'Juin', 'Juillet', 'AoÃ»t',
+                    monthNames : [ 'Janvier', 'Février', 'Mars',
+                        'Avril', 'Mai', 'Juin', 'Juillet', 'Août',
                         'Septembre', 'Octobre', 'Novembre',
-                        'DÃ©cembre' ],
-                    monthNamesShort : [ 'Janv.', 'FÃ©vr.', 'Mars',
-                        'Avril', 'Mai', 'Juin', 'Juil.', 'AoÃ»t',
-                        'Sept.', 'Oct.', 'Nov.', 'DÃ©c.' ],
+                        'Décembre' ],
+                    monthNamesShort : [ 'Janv.', 'Févr.', 'Mars',
+                        'Avril', 'Mai', 'Juin', 'Juil.', 'Août',
+                        'Sept.', 'Oct.', 'Nov.', 'Déc.' ],
                     dayNames : [ 'Dimanche', 'Lundi', 'Mardi',
                         'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
                     dayNamesShort : [ 'Dim.', 'Lun.', 'Mar.', 'Mer.',

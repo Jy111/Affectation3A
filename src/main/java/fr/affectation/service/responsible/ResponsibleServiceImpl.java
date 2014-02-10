@@ -41,7 +41,7 @@ public class ResponsibleServiceImpl implements ResponsibleService {
 		return allResponsible;
 	}
     @Override
-    @Transactional(readOnly =true)
+    @Transactional(readOnly = true)
     public ArrayList<String> whichSpecialization(String login){
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(ImprovementCourse.class);
@@ -54,9 +54,42 @@ public class ResponsibleServiceImpl implements ResponsibleService {
         for(int count =0; count<improvementCourseList.size(); count++){
             improvementCourseListAbbreviation.add(improvementCourseListArray.get(count).getAbbreviation());
         }
-        return improvementCourseListAbbreviation;
+        if (improvementCourseListArray != null){
+            return improvementCourseListAbbreviation;
+        }
+        else {
+            criteria = session.createCriteria(JobSector.class);
+            criteria.add(Restrictions.eq("responsibleLogin", login));
+            List jobSectorList = criteria.list();
+            ArrayList<ImprovementCourse> jobSectorListArray = new ArrayList<ImprovementCourse>(jobSectorList.size());
+            improvementCourseListArray.addAll(jobSectorList);
+            ArrayList<String> jobSectorListAbbreviation = new ArrayList<String>();
+
+            for(int count =0; count<improvementCourseList.size(); count++){
+                jobSectorListAbbreviation.add(improvementCourseListArray.get(count).getAbbreviation());
+            }
+            return jobSectorListAbbreviation;
+        }
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public int whichSpecializationType(String login){
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(ImprovementCourse.class);
+        criteria.add(Restrictions.eq("responsibleLogin", login));
+        List improvementCourseList = criteria.list();
+        ArrayList<ImprovementCourse> improvementCourseListArray = new ArrayList<ImprovementCourse>(improvementCourseList.size());
+        improvementCourseListArray.addAll(improvementCourseList);
+
+        if (improvementCourseListArray != null){
+            return Specialization.IMPROVEMENT_COURSE;
+        }
+        else {
+            return Specialization.JOB_SECTOR;
+        }
+
+    }
 
 	@Override
 	@Transactional(readOnly = true)

@@ -10,6 +10,18 @@
 <title>Affectation parcours/filière 3ème année Centrale Marseille</title>
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+<link href="${pageContext.request.contextPath}/css/dot-luv/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/date-time-picker/jquery-ui-timepicker-addon.css" rel="stylesheet">
+<script>
+    $(function() {
+        $.datepicker.setDefaults($.extend($.datepicker.regional["fr"]));
+        $("#datepicker").datepicker();
+    });
+</script>
+<script src="${pageContext.request.contextPath}/js/jquery-final/jquery-1.8.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/date-time-picker/jquery-ui-timepicker-addon.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -56,7 +68,7 @@
 									<div class="input-append">
 										<form:input id="firstEmail" path="firstEmail" class="span2"
 											value="${firstEmail}" />
-										<span class="add-on">dd/MM/yyyy HH:mm</span>
+
 									</div>
 									<br />
 									<label for="secondEmail">Envoi du second mail de rappel
@@ -67,7 +79,7 @@
 									<div class="input-append">
 										<form:input id="secondEmail" path="secondEmail" class="span2"
 											value="${secondEmail}" />
-										<span class="add-on">dd/MM/yyyy HH:mm</span>
+
 									</div>
 									<br />
 									<label for="endSubmission">Fin des soumissions <form:errors path="endSubmission">
@@ -77,7 +89,7 @@
 									<div class="input-append">
 										<form:input id="endSubmission" path="endSubmission"
 											class="span2" value="${endSubmission}" />
-										<span class="add-on">dd/MM/yyyy HH:mm</span>
+
 									</div>
 									<br />
 									<label for="endValidation">Fin de la validation par les
@@ -88,7 +100,7 @@
 									<div class="input-append">
 										<form:input id="endValidation" path="endValidation"
 											class="span2" value="${endValidation}" />
-										<span class="add-on">dd/MM/yyyy HH:mm</span>
+
 									</div>
 									<br />
 								</c:when>
@@ -110,7 +122,7 @@
 											<div class="input-append">
 												<form:input id="secondEmail" path="secondEmail"
 													class="span2" value="${secondEmail}" />
-												<span class="add-on">dd/MM/yyyy HH:mm</span>
+
 											</div>
 											<br />
 											<label for="endSubmission">Fin des soumissions <form:errors path="endSubmission">
@@ -120,7 +132,7 @@
 											<div class="input-append">
 												<form:input id="endSubmission" path="endSubmission"
 													class="span2" value="${endSubmission}" />
-												<span class="add-on">dd/MM/yyyy HH:mm</span>
+
 											</div>
 											<br />
 											<label for="endValidation">Fin de la validation par
@@ -131,7 +143,7 @@
 											<div class="input-append">
 												<form:input id="endValidation" path="endValidation"
 													class="span2" value="${endValidation}" />
-												<span class="add-on">dd/MM/yyyy HH:mm</span>
+
 											</div>
 											<br />
 										</c:when>
@@ -158,7 +170,7 @@
 													<div class="input-append">
 														<form:input id="endSubmission" path="endSubmission"
 															class="span2" value="${endSubmission}" />
-														<span class="add-on">dd/MM/yyyy HH:mm</span>
+
 													</div>
 													<br />
 													<label for="endValidation">Fin de la validation par
@@ -169,7 +181,7 @@
 													<div class="input-append">
 														<form:input id="endValidation" path="endValidation"
 															class="span2" value="${endValidation}" />
-														<span class="add-on">dd/MM/yyyy HH:mm</span>
+
 													</div>
 													<br />
 												</c:when>
@@ -199,7 +211,7 @@
 													<div class="input-append">
 														<form:input id="endValidation" path="endValidation"
 															class="span2" value="${endValidation}" />
-														<span class="add-on">dd/MM/yyyy HH:mm</span>
+
 													</div>
 													<br />
 												</c:otherwise>
@@ -228,4 +240,36 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+    $(function() {
+        $('#firstEmail, #secondEmail, #endSubmission, #endValidation')
+                .datetimepicker(
+                {
+                    timeFormat : 'HH:mm',
+                    closeText : 'Fermer',
+                    prevText : 'Précédent',
+                    nextText : 'Suivant',
+                    currentText : 'Aujourd\'hui',
+                    monthNames : [ 'Janvier', 'Février', 'Mars',
+                        'Avril', 'Mai', 'Juin', 'Juillet', 'Août',
+                        'Septembre', 'Octobre', 'Novembre',
+                        'Décembre' ],
+                    monthNamesShort : [ 'Janv.', 'Févr.', 'Mars',
+                        'Avril', 'Mai', 'Juin', 'Juil.', 'Août',
+                        'Sept.', 'Oct.', 'Nov.', 'Déc.' ],
+                    dayNames : [ 'Dimanche', 'Lundi', 'Mardi',
+                        'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+                    dayNamesShort : [ 'Dim.', 'Lun.', 'Mar.', 'Mer.',
+                        'Jeu.', 'Ven.', 'Sam.' ],
+                    dayNamesMin : [ 'D', 'L', 'M', 'M', 'J', 'V', 'S' ],
+                    weekHeader : 'Sem.',
+                    dateFormat : 'dd/mm/yy',
+                    firstDay : 1,
+                    isRTL : false,
+                    showMonthAfterYear : false,
+                    yearSuffix : '',
+                    minDate : new Date(),
+                });
+    });
+</script>
 </html>

@@ -82,3 +82,9 @@ Imposible de trouver l'endroit ou le login d'un responsable est ajouté automati
 
 ->/respons/choix => page qui dit coucou puis qui liste les parcours filières.
 ->REsponsableServiceImpl => forwhichspecializationType
+
+
+-> popup pour les icones!
+
+->       type de graphe
+->

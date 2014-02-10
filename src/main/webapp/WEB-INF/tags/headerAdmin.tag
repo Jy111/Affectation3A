@@ -4,7 +4,7 @@
 
 <nav class="navbar">
     <div class="navbar-inner">
-        <a  class="brand" href="${pageContext.request.contextPath}/admin/">Affectation 3A </a>
+        <a href="${pageContext.request.contextPath}/admin/" class="brand">Affectation 3A </a>
         <div class="pull-right">
             <ul class="nav">
                 <c:choose>
@@ -12,7 +12,7 @@
                         <li><a href="${pageContext.request.contextPath}/admin/run/settings/admins">Administration</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${pageContext.request.contextPath}/admin/config/exclude">ElÃ¨ves</a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/config/exclude">Elèves</a></li>
                     </c:otherwise>
                 </c:choose>
                 <li class="divider-vertical"></li>

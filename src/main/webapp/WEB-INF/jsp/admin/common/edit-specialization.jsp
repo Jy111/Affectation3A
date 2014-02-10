@@ -80,14 +80,10 @@
 						<c:if test="${(alreadyExists) && (not (state == 'run'))}">
 							<c:choose>
 								<c:when test="${specialization.type == specialization.JOB_SECTOR}">
-									<a name="delete" class="btn btn-danger" href="${pageContext.request.contextPath}/admin/config/delete/job-sector/${abbreviation}">
-										Supprimer
-									</a>
+									<a name="delete" class="btn btn-danger" href="${pageContext.request.contextPath}/admin/config/delete/job-sector/${abbreviation}"></a>
 								</c:when>
 								<c:otherwise>
-									<a name="delete" class="btn btn-danger" href="${pageContext.request.contextPath}/admin/config/delete/improvement-course/${abbreviation}">
-										Supprimer
-									</a>
+									<a name="delete" class="btn btn-danger" href="${pageContext.request.contextPath}/admin/config/delete/improvement-course/${abbreviation}"></a>
 								</c:otherwise>
 							</c:choose>
 						</c:if>
