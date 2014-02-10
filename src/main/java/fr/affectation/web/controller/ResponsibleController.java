@@ -117,13 +117,13 @@ public class ResponsibleController {
 		return validated ? "false" : "true";
 	}
 
-	@RequestMapping("/student/{login}")
-	public String displayStudent(@PathVariable String login, Model model, HttpServletRequest request) {
+	@RequestMapping("/{abbreviation}/student/{login}")
+	public String displayStudent(@PathVariable String login, @PathVariable String abbreviation, Model model, HttpServletRequest request) {
 		if (configurationService.isRunning()){
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String loginRespo = auth.getName();
-			String abbreviation = responsibleService.forWhichSpecialization(loginRespo);
-			Specialization specialization = responsibleService.forWhichSpecializationType(loginRespo) == Specialization.IMPROVEMENT_COURSE ? specializationService
+			//String abbreviation = responsibleService.forWhichSpecialization(loginRespo);
+			Specialization specialization = responsibleService.whichSpecializationType(loginRespo) == Specialization.IMPROVEMENT_COURSE ? specializationService
 					.getImprovementCourseByAbbreviation(abbreviation) : specializationService.getJobSectorByAbbreviation(abbreviation);
 			model.addAttribute("specialization", specialization);
 			model.addAttribute("student", studentService.retrieveStudentByLogin(login, request.getSession().getServletContext().getRealPath("/")));

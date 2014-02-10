@@ -61,12 +61,12 @@ public class ResponsibleServiceImpl implements ResponsibleService {
             criteria = session.createCriteria(JobSector.class);
             criteria.add(Restrictions.eq("responsibleLogin", login));
             List jobSectorList = criteria.list();
-            ArrayList<ImprovementCourse> jobSectorListArray = new ArrayList<ImprovementCourse>(jobSectorList.size());
-            improvementCourseListArray.addAll(jobSectorList);
+            ArrayList<JobSector> jobSectorListArray = new ArrayList<JobSector>(jobSectorList.size());
+            jobSectorListArray.addAll(jobSectorList);
             ArrayList<String> jobSectorListAbbreviation = new ArrayList<String>();
 
-            for(int count =0; count<improvementCourseList.size(); count++){
-                jobSectorListAbbreviation.add(improvementCourseListArray.get(count).getAbbreviation());
+            for(int count =0; count<jobSectorList.size(); count++){
+                jobSectorListAbbreviation.add(jobSectorListArray.get(count).getAbbreviation());
             }
             return jobSectorListAbbreviation;
         }

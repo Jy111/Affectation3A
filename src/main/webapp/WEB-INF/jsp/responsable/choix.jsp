@@ -68,12 +68,12 @@
 											<c:choose>
 												<c:when test="${student.validated}">
 													<tr class="success">
-														<td><a href="${pageContext.request.contextPath}/responsable/student/${student.login}">${student.name}</a></td>
+														<td><a href="${pageContext.request.contextPath}/responsable/${specialization.abbreviation}/student/${student.login}">${student.name}</a></td>
 													</tr>
 												</c:when>
 												<c:otherwise>
 													<tr class="error">
-														<td><a href="${pageContext.request.contextPath}/responsable/student/${student.login}">${student.name}</a></td>
+														<td><a href="${pageContext.request.contextPath}/responsable/${specialization.abbreviation}/student/${student.login}">${student.name}</a></td>
 													</tr>
 												</c:otherwise>
 											</c:choose>
@@ -84,7 +84,7 @@
 									<tbody>
 										<c:forEach var="student" items="${allStudents}">
 											<tr>
-												<td><a href="${pageContext.request.contextPath}/responsable/student/${student.login}">${student.name}</a></td>
+												<td><a href="${pageContext.request.contextPath}/responsable/${specialization.abbreviation}/student/${student.login}">${student.name}</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
