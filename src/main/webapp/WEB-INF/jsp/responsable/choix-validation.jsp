@@ -18,7 +18,7 @@ function inverseValidation(id){
 	var name = loginName[1];
 	var path = document.getElementById("path").innerHTML;
 	$.ajax({
-		url: path + "/responsable/inverse-validation",
+		url: path + "/responsable/${specialization.abbreviation}/inverse-validation",
 		data: "login="+login,
 		success: function(validated){
 			if (validated == "true"){

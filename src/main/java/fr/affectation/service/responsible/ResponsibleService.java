@@ -15,7 +15,7 @@ public interface ResponsibleService {
 
 	public int forWhichSpecializationType(String login);
 
-    public int whichSpecializationType(String login);
+    public int whichSpecializationType(String login, String abbreviation);
 	
 	public boolean isResponsible(String login);
 

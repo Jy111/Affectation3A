@@ -18,6 +18,8 @@ public interface SpecializationService {
 	
 	public ImprovementCourse getImprovementCourseByAbbreviation(String abbreviation);
 
+    public int getSpecializationByAbbreviation(String abbreviation);
+
 	public List<String> findJobSectorAbbreviations();
 
 	public List<String> findImprovementCourseAbbreviations();

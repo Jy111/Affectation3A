@@ -42,7 +42,20 @@ public class SpecializationServiceImpl implements SpecializationService {
 		Session session = sessionFactory.getCurrentSession();
 		return (ImprovementCourse) session.get(ImprovementCourse.class, abbreviation);
 	}
-	
+
+    @Override
+    @Transactional(readOnly = true)
+    public int getSpecializationByAbbreviation(String abbreviation){
+        Session session = sessionFactory.getCurrentSession();
+        if (session.get(ImprovementCourse.class, abbreviation) != null){
+            return Specialization.IMPROVEMENT_COURSE;
+        }
+        else{
+            return Specialization.JOB_SECTOR;
+        }
+    }
+
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)

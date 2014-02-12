@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import fr.affectation.service.specialization.SpecializationService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,6 +22,9 @@ public class ResponsibleServiceImpl implements ResponsibleService {
 	
 	@Inject
 	private SessionFactory sessionFactory;
+
+    @Inject
+    private SpecializationService specializationService;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -46,43 +50,43 @@ public class ResponsibleServiceImpl implements ResponsibleService {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(ImprovementCourse.class);
         criteria.add(Restrictions.eq("responsibleLogin", login));
-        List improvementCourseList = criteria.list();
-        ArrayList<ImprovementCourse> improvementCourseListArray = new ArrayList<ImprovementCourse>(improvementCourseList.size());
-        improvementCourseListArray.addAll(improvementCourseList);
-        ArrayList<String> improvementCourseListAbbreviation = new ArrayList<String>();
+        //List improvementCourseList = criteria.list();
+        //ArrayList<Specialization> improvementCourseListArray = new ArrayList<Specialization>(improvementCourseList.size());
+        //improvementCourseListArray.addAll(improvementCourseList);
+        ArrayList<String> improvementCourseAndJobSectorListAbbreviation = new ArrayList<String>();
 
-        for(int count =0; count<improvementCourseList.size(); count++){
-            improvementCourseListAbbreviation.add(improvementCourseListArray.get(count).getAbbreviation());
-        }
-        if (improvementCourseListArray != null){
-            return improvementCourseListAbbreviation;
-        }
-        else {
-            criteria = session.createCriteria(JobSector.class);
-            criteria.add(Restrictions.eq("responsibleLogin", login));
-            List jobSectorList = criteria.list();
-            ArrayList<JobSector> jobSectorListArray = new ArrayList<JobSector>(jobSectorList.size());
-            jobSectorListArray.addAll(jobSectorList);
-            ArrayList<String> jobSectorListAbbreviation = new ArrayList<String>();
 
-            for(int count =0; count<jobSectorList.size(); count++){
-                jobSectorListAbbreviation.add(jobSectorListArray.get(count).getAbbreviation());
-            }
-            return jobSectorListAbbreviation;
+        for(ImprovementCourse improvementCourse : (List<ImprovementCourse>)criteria.list())
+        {
+            improvementCourseAndJobSectorListAbbreviation.add(improvementCourse.getAbbreviation());
         }
+
+        criteria = session.createCriteria(JobSector.class);
+        criteria.add(Restrictions.eq("responsibleLogin", login));
+        //List jobSectorList = criteria.list();
+        //ArrayList<JobSector> jobSectorListArray = new ArrayList<JobSector>(jobSectorList.size());
+        //jobSectorListArray.addAll(jobSectorList);
+        //ArrayList<String> jobSectorListAbbreviation = new ArrayList<String>();
+
+        for(JobSector jobSector : (List<JobSector>)criteria.list()){
+            improvementCourseAndJobSectorListAbbreviation.add(jobSector.getAbbreviation());
+        }
+        return improvementCourseAndJobSectorListAbbreviation;
+
     }
 
     @Override
     @Transactional(readOnly = true)
-    public int whichSpecializationType(String login){
+    public int whichSpecializationType(String login, String abbreviation){
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(ImprovementCourse.class);
         criteria.add(Restrictions.eq("responsibleLogin", login));
-        List improvementCourseList = criteria.list();
-        ArrayList<ImprovementCourse> improvementCourseListArray = new ArrayList<ImprovementCourse>(improvementCourseList.size());
-        improvementCourseListArray.addAll(improvementCourseList);
+        //List improvementCourseList = criteria.list();
+        //ArrayList<ImprovementCourse> improvementCourseListArray = new ArrayList<ImprovementCourse>(improvementCourseList.size());
+        //improvementCourseListArray.addAll(improvementCourseList);
+        int specialization = specializationService.getSpecializationByAbbreviation(abbreviation);
 
-        if (improvementCourseListArray != null){
+        if (specialization != 0){
             return Specialization.IMPROVEMENT_COURSE;
         }
         else {
