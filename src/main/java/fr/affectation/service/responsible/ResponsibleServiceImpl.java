@@ -23,9 +23,6 @@ public class ResponsibleServiceImpl implements ResponsibleService {
 	@Inject
 	private SessionFactory sessionFactory;
 
-    @Inject
-    private SpecializationService specializationService;
-
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
@@ -50,11 +47,8 @@ public class ResponsibleServiceImpl implements ResponsibleService {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(ImprovementCourse.class);
         criteria.add(Restrictions.eq("responsibleLogin", login));
-        //List improvementCourseList = criteria.list();
-        //ArrayList<Specialization> improvementCourseListArray = new ArrayList<Specialization>(improvementCourseList.size());
-        //improvementCourseListArray.addAll(improvementCourseList);
-        ArrayList<String> improvementCourseAndJobSectorListAbbreviation = new ArrayList<String>();
 
+        ArrayList<String> improvementCourseAndJobSectorListAbbreviation = new ArrayList<String>();
 
         for(ImprovementCourse improvementCourse : (List<ImprovementCourse>)criteria.list())
         {
@@ -63,35 +57,11 @@ public class ResponsibleServiceImpl implements ResponsibleService {
 
         criteria = session.createCriteria(JobSector.class);
         criteria.add(Restrictions.eq("responsibleLogin", login));
-        //List jobSectorList = criteria.list();
-        //ArrayList<JobSector> jobSectorListArray = new ArrayList<JobSector>(jobSectorList.size());
-        //jobSectorListArray.addAll(jobSectorList);
-        //ArrayList<String> jobSectorListAbbreviation = new ArrayList<String>();
 
         for(JobSector jobSector : (List<JobSector>)criteria.list()){
             improvementCourseAndJobSectorListAbbreviation.add(jobSector.getAbbreviation());
         }
         return improvementCourseAndJobSectorListAbbreviation;
-
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public int whichSpecializationType(String login, String abbreviation){
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(ImprovementCourse.class);
-        criteria.add(Restrictions.eq("responsibleLogin", login));
-        //List improvementCourseList = criteria.list();
-        //ArrayList<ImprovementCourse> improvementCourseListArray = new ArrayList<ImprovementCourse>(improvementCourseList.size());
-        //improvementCourseListArray.addAll(improvementCourseList);
-        int specialization = specializationService.getSpecializationByAbbreviation(abbreviation);
-
-        if (specialization != 0){
-            return Specialization.IMPROVEMENT_COURSE;
-        }
-        else {
-            return Specialization.JOB_SECTOR;
-        }
 
     }
 
@@ -135,5 +105,11 @@ public class ResponsibleServiceImpl implements ResponsibleService {
 		return findResponsibles().contains(login);
 	}
 
+    @Override
+    @Transactional(readOnly = true)
+    public boolean isResponsibleFor(String login, String abbreviation){
+        ArrayList<String> improvementCourseAndJobSectorListAbbreviation = whichSpecialization(login);
+        return improvementCourseAndJobSectorListAbbreviation.contains(abbreviation);
+    }
 
 }

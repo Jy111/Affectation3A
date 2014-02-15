@@ -79,6 +79,8 @@ public class ChoiceServiceImpl implements ChoiceService {
 		querySpecialization += " where choice" + orderChoice + "=:abbreviation";
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(querySpecialization);
+
+
 		query.setString("abbreviation", specialization.getAbbreviation());
 		List<Choice> allChoices = query.list();
 		List<String> allLogins = new ArrayList<String>();

@@ -39,7 +39,7 @@
 						<h4>${superPa[0].superIc}</h4>
 						<c:forEach var="pa" items="${superPa}">
 							${pa.stringForForm}
-							<a href="${pageContext.request.contextPath}/admin/common/edit/ic/${pa.abbreviation}" class="btn btn-primary btn-small pull-right"><i class="icon-white icon-pencil"></i></a>
+							<a  title="Modifier" href="${pageContext.request.contextPath}/admin/common/edit/ic/${pa.abbreviation}" class="btn btn-primary btn-small pull-right"><i class="icon-white icon-pencil"></i></a>
 							<br />
 							<br />
 						</c:forEach>
@@ -57,7 +57,7 @@
 					</c:choose>
 					${fm.stringForForm}
 					<a href="${pageContext.request.contextPath}/admin/common/edit/js/${fm.abbreviation}"
-						class="btn btn-primary btn-small pull-right"><i class="icon-white icon-pencil"></i></a>
+                       title="Modifier" class="btn btn-primary btn-small pull-right"><i class="icon-white icon-pencil"></i></a>
 					<br />
                     <br />
 				</c:forEach>

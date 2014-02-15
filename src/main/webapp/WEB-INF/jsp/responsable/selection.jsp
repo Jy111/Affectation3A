@@ -22,13 +22,18 @@
 
     <div class="container">
         <tags:headerResponsible title="Selection"></tags:headerResponsible>
-        <ul class="nav nav-pills nav-stacked span3">
-            <c:forEach var="abbreviation" items="${allAbbreviations}" varStatus="status">
-                <p>
-                    <li><a href ="${pageContext.request.contextPath}/responsable/${abbreviation}/1" >${abbreviation}</a>  </li>
-                </p>
-            </c:forEach>
-        </ul>
+        <div class="span4 offset4">
+            <center>
+                <ul class="nav nav-pills nav-stacked span3">
+                    <li>Choisissez votre parcours ou filière</li>
+                    <c:forEach var="abbreviation" items="${allAbbreviations}" varStatus="status">
+                        <p>
+                            <li><a href ="${pageContext.request.contextPath}/responsable/${abbreviation}/1" >${abbreviation}</a>  </li>
+                        </p>
+                    </c:forEach>
+                </ul>
+            </center>
+        </div>
     </div>
 
 </body>

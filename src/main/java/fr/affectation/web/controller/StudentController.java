@@ -245,5 +245,23 @@ public class StudentController {
 			return "student/noSubmission";
 		}
 	}
+    @RequestMapping("/resume")
+    public String showResumeForChoice(Model model){
+        if (configurationService.isSubmissionAvailable()){
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String login = auth.getName();
+            Choice choiceIc = choiceService.findImprovementCourseChoiceByLogin(login);
+            Choice choiceJs = choiceService.findJobSectorChoiceByLogin(login);
+
+
+            model.addAttribute("choiceIc", choiceIc);
+            model.addAttribute("choiceJs", choiceJs);
+            return "student/resume";
+
+        } else{
+            return "student/noSubmission";
+        }
+
+    }
 
 }

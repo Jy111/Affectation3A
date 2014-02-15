@@ -49,7 +49,7 @@
             <div class="span4">
                 <center>
                     <h2>
-                        Parcours <a href="${pageContext.request.contextPath}/admin/config/new/improvement-course" class="btn btn-info"><i class="icon-white icon-plus"></i></a>
+                        Parcours <a href="${pageContext.request.contextPath}/admin/config/new/improvement-course" class="btn btn-info" title="Ajouter"><i class="icon-white icon-plus"></i></a>
                     </h2>
                 </center>
 
@@ -59,8 +59,8 @@
                     <c:forEach var="pa" items="${superPa}">
                         ${pa.stringForForm}
                         <div class="btn-group pull-right">
-                            <a href="${pageContext.request.contextPath}/admin/common/edit/ic/${pa.abbreviation}" class="btn btn-primary btn-small"><i class="icon-white icon-pencil"></i></a>
-                            <a href="${pageContext.request.contextPath}/admin/config/delete/improvement-course/${pa.abbreviation}" class="btn btn-danger btn-small"><i class="icon-white icon-remove"></i></a>
+                            <a href="${pageContext.request.contextPath}/admin/common/edit/ic/${pa.abbreviation}" class="btn btn-primary btn-small" title="Modifier"><i class="icon-white icon-pencil"></i></a>
+                            <a href="${pageContext.request.contextPath}/admin/config/delete/improvement-course/${pa.abbreviation}" class="btn btn-danger btn-small" title="Supprimer"><i class="icon-white icon-remove"></i></a>
                         </div>
 
                         <br />
@@ -71,7 +71,7 @@
             <div class="span4">
                 <center>
                     <h2>
-                        Filières <a href="${pageContext.request.contextPath}/admin/config/new/job-sector" class="btn btn-info"><i class="icon-white icon-plus"></i></a>
+                        Filières <a href="${pageContext.request.contextPath}/admin/config/new/job-sector" class="btn btn-info" title="Ajouter"><i class="icon-white icon-plus"></i></a>
                     </h2>
                 </center>
 
@@ -80,8 +80,8 @@
                     <br/>
                     ${fm.stringForForm}
                     <div class="btn-group pull-right">
-                        <a href="${pageContext.request.contextPath}/admin/common/edit/js/${fm.abbreviation}" class="btn btn-primary btn-small"><i class="icon-white icon-pencil"></i></a>
-                        <a href="${pageContext.request.contextPath}/admin/config/delete/job-sector/${fm.abbreviation}" class="btn btn-danger btn-small"><i class="icon-white icon-remove"></i></a>
+                        <a href="${pageContext.request.contextPath}/admin/common/edit/js/${fm.abbreviation}" class="btn btn-primary btn-small" title="Modifier"><i class="icon-white icon-pencil"></i></a>
+                        <a href="${pageContext.request.contextPath}/admin/config/delete/job-sector/${fm.abbreviation}" class="btn btn-danger btn-small" title="Supprimer"><i class="icon-white icon-remove"></i></a>
                     </div>
 
                     <br />

@@ -59,7 +59,7 @@ function generatePieChart(type) {
             }
         },
         plotOptions: {
-            pie: {
+            column: {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
@@ -74,8 +74,8 @@ function generatePieChart(type) {
         },
     	
         series: [{
-            type: 'pie',
-            name: 'Percentage',
+            type: 'column',
+            name: 'Repartition des eleves',
             data: dataV
         }]
     });
