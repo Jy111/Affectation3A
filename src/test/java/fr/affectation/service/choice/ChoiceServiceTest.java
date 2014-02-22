@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import fr.affectation.domain.choice.MasterChoice;
 import junit.framework.Assert;
 
 import org.hibernate.Session;
@@ -40,6 +41,7 @@ public class ChoiceServiceTest {
 		Transaction transaction = session.beginTransaction();
 		session.createQuery("delete from JobSectorChoice").executeUpdate();
 		session.createQuery("delete from ImprovementCourseChoice").executeUpdate();
+        session.createQuery("delete from MasterChoice").executeUpdate();
 		transaction.commit();
 		session.close();
 	}
@@ -50,6 +52,7 @@ public class ChoiceServiceTest {
 		Transaction transaction = session.beginTransaction();
 		session.createQuery("delete from JobSectorChoice").executeUpdate();
 		session.createQuery("delete from ImprovementCourseChoice").executeUpdate();
+        session.createQuery("delete from MasterChoice").executeUpdate();
 		transaction.commit();
 		session.close();
 	}

@@ -68,7 +68,9 @@ public interface StudentService {
 
 	public List<Specialization> findJsChoicesFullSpecByLogin(String login);
 
-	public List<List<ImprovementCourse>> findIcAvailableAsListWithSuperIc();
+    public Specialization findMChoiceFullSpecByLogin(String login);
+
+    public List<List<ImprovementCourse>> findIcAvailableAsListWithSuperIc();
 
 	public List<SimpleSpecializationWithNumber> findSimpleIcStats(int choice);
 

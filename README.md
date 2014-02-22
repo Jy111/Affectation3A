@@ -58,33 +58,19 @@ L'application se déploie sur /affectation3A (configuré dans le pom.xml). Si ce
 
 
 ***************************************************************
-BUG FOUND
-un admin peut affecter un prof/login à plusieurs parcours et filières.
-=> error 500 apres à la co du responsable
-Solutions possibles :
-   (1. Empecher l'affectation à plusieurs parcours/filière   )-> pas envisageable
-    2. Donner la possibilité de choisir le parcours voulu à la connexion du responsable
-    3. voire plus
+A faire:
 
-=> pas de message d'erreur après creation de deux parcours identiques mais un seul reste.
+modifier web-inf/jsp/student/form.jsp
+modifier web-inf/jsp/student/success.jsp
 
--> penser à modifier la fonction findResponsibles dans impl.
--> test, findResponsible() (peut etre à revoir)
+modifier web-inf/jsp/admin/common/edit-specialization.jsp
+modifier web-inf/jsp/admin/config/index.jsp
 
--> CustomUserDetailService : Raison du non choix du type de responsabilité!
-implique via CustomAuthenticationSuccessHandler
+modifier web-inf/jsp/admin/run/main/choices -> add master (details + synthese)
 
-Imposible de trouver l'endroit ou le login d'un responsable est ajouté automatiquement. La création d'un Jobsector et d'un ImprovementCourse se fait dans le AdminControllerJava
+modifier web-inf/jsp/admin/run/main/student/edit-form.jsp
+modifier web-inf/jsp/admin/run/main/student/student.jsp
+
+modifier web-inf/jsp/responsable/student.jsp
 
 
--> voir dgeo pour l'adresse ne_pas_repondre@centrale-marseille.fr
-
-
-->/respons/choix => page qui dit coucou puis qui liste les parcours filières.
-->REsponsableServiceImpl => forwhichspecializationType
-
-
--> popup pour les icones!
-
-->       type de graphe
-->

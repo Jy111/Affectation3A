@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import fr.affectation.domain.choice.*;
 import org.quartz.SchedulerException;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -31,10 +32,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.affectation.domain.choice.Choice;
-import fr.affectation.domain.choice.FullChoice;
-import fr.affectation.domain.choice.ImprovementCourseChoice;
-import fr.affectation.domain.choice.JobSectorChoice;
 import fr.affectation.domain.specialization.ImprovementCourse;
 import fr.affectation.domain.specialization.JobSector;
 import fr.affectation.domain.specialization.Specialization;
@@ -375,11 +372,13 @@ public class AdminController {
 			String path = request.getSession().getServletContext().getRealPath("/");
 			Choice choiceIc = choiceService.findImprovementCourseChoiceByLogin(login);
 			Choice choiceJs = choiceService.findJobSectorChoiceByLogin(login);
+            MasterChoice masterChoice = choiceService.findMasterChoiceByLogin(login);
 			model.addAttribute("hasFilledLetterIc", documentService.hasFilledLetterIc(path, login));
 			model.addAttribute("hasFilledLetterJs", documentService.hasFilledLetterJs(path, login));
 			model.addAttribute("hasFilledResume", documentService.hasFilledResume(path, login));
 			model.addAttribute("choiceIc", choiceIc);
 			model.addAttribute("choiceJs", choiceJs);
+            model.addAttribute("masterChoice", masterChoice);
 			model.addAttribute("fullChoice", new FullChoice());
 			model.addAttribute("paAvailable", studentService.findIcAvailableAsListWithSuperIc());
 			model.addAttribute("fmAvailable", specializationService.findJobSectors());
@@ -399,9 +398,11 @@ public class AdminController {
 
 			ImprovementCourseChoice improvementCourseChoice = fullChoice.getImprovementCourseChoice();
 			JobSectorChoice jobSectorChoice = fullChoice.getJobSectorChoice();
+            MasterChoice masterChoice = fullChoice.getMasterChoice();
 
 			improvementCourseChoice.setLogin(login);
 			jobSectorChoice.setLogin(login);
+            masterChoice.setLogin(login);
 
 			if (improvementCourseChoice.getChoice1().equals(noSelectionMessage)) {
 				improvementCourseChoice.setChoice1("");
@@ -435,6 +436,10 @@ public class AdminController {
 				jobSectorChoice.setChoice5("");
 			}
 
+            if (masterChoice.getChoice().equals(noSelectionMessage)){
+                masterChoice.setChoice("");
+            }
+
 			improvementCourseChoice.setChoice1(specializationService.getAbbreviationFromStringForForm(improvementCourseChoice.getChoice1()));
 			improvementCourseChoice.setChoice2(specializationService.getAbbreviationFromStringForForm(improvementCourseChoice.getChoice2()));
 			improvementCourseChoice.setChoice3(specializationService.getAbbreviationFromStringForForm(improvementCourseChoice.getChoice3()));
@@ -447,8 +452,11 @@ public class AdminController {
 			jobSectorChoice.setChoice4(specializationService.getAbbreviationFromStringForForm(jobSectorChoice.getChoice4()));
 			jobSectorChoice.setChoice5(specializationService.getAbbreviationFromStringForForm(jobSectorChoice.getChoice5()));
 
+            masterChoice.setChoice(specializationService.getAbbreviationFromStringForForm(masterChoice.getChoice()));
+
 			choiceService.save(improvementCourseChoice);
 			choiceService.save(jobSectorChoice);
+            choiceService.saveMasterChoice(masterChoice);
 
 			String path = request.getSession().getServletContext().getRealPath("/");
 

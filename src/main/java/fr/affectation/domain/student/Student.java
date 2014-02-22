@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.affectation.domain.choice.ImprovementCourseChoice;
 import fr.affectation.domain.choice.JobSectorChoice;
+import fr.affectation.domain.choice.MasterChoice;
 
 public class Student {
 
@@ -22,7 +23,9 @@ public class Student {
 	private ImprovementCourseChoice icChoices;
 	
 	private JobSectorChoice jsChoices;
-	
+
+    private MasterChoice mChoice;
+
 	private List<Contentious> contentious;
 	
 	private List<UeResult> results;
@@ -45,7 +48,11 @@ public class Student {
 		this.jsChoices = jsChoices;
 	}
 
-	public boolean isHasFilledLetterJs() {
+	public MasterChoice getMchoice() { return mChoice; }
+
+    public void setMChoice(MasterChoice mChoice) { this.mChoice = mChoice; }
+
+    public boolean isHasFilledLetterJs() {
 		return hasFilledLetterJs;
 	}
 

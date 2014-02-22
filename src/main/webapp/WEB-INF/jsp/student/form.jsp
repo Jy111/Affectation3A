@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-inverse"></nav>
+		<nav class="navbar"></nav>
 		<div id="path" style="display:none">${pageContext.request.contextPath}</div>
 
 		<div class="row">
@@ -299,7 +299,8 @@
 			</div>
 
 			<div class="span2">
-				<div class="pull right">
+
+                <div class="pull right">
 					<a href="${pageContext.request.contextPath}/logout" class="btn btn-danger"><i class="icon-white icon-off"></i> Deconnexion</a>
 				</div>
 			</div>

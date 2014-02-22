@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import fr.affectation.domain.choice.MasterChoice;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -34,6 +35,13 @@ public class ChoiceServiceImpl implements ChoiceService {
 		session.saveOrUpdate(choice);
 	}
 
+    @Override
+    @Transactional
+    public void saveMasterChoice(MasterChoice masterChoice) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(masterChoice);
+    }
+
 	@Override
 	@Transactional(readOnly = true)
 	public JobSectorChoice findJobSectorChoiceByLogin(String login) {
@@ -49,6 +57,14 @@ public class ChoiceServiceImpl implements ChoiceService {
 		ImprovementCourseChoice choices = (ImprovementCourseChoice) session.get(ImprovementCourseChoice.class, login);
 		return choices == null ? new ImprovementCourseChoice() : choices;
 	}
+
+    @Override
+    @Transactional(readOnly = true)
+    public MasterChoice findMasterChoiceByLogin(String login) {
+        Session session = sessionFactory.getCurrentSession();
+        MasterChoice choice = (MasterChoice) session.get(MasterChoice.class, login);
+        return choice == null ? new MasterChoice() : choice;
+    }
 
 	@Override
 	@Transactional(readOnly = true)
@@ -69,6 +85,16 @@ public class ChoiceServiceImpl implements ChoiceService {
 		List<ImprovementCourseChoice> allChoices = query.list();
 		return allChoices;
 	}
+
+    @Override
+    @Transactional(readOnly = true)
+    public MasterChoice findMasterChoice() {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from MasterChoice");
+        @SuppressWarnings("unchecked")
+        MasterChoice choice = (MasterChoice) query.uniqueResult();
+        return choice;
+    }
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -114,6 +140,13 @@ public class ChoiceServiceImpl implements ChoiceService {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(choice);
 	}
+
+    @Override
+    @Transactional
+    public void deleteMasterChoice(MasterChoice choice) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(choice);
+    }
 
 	@Override
 	@Transactional(readOnly = true)
@@ -173,6 +206,18 @@ public class ChoiceServiceImpl implements ChoiceService {
 		return notFilled;
 	}
 
+    @Override
+    @Transactional(readOnly = true)
+    public boolean findNotFilledMaster(String login){
+        MasterChoice choice = findMasterChoiceByLogin(login);
+        boolean notFilled = true;
+        if (choice != null) {
+            notFilled = false;
+        }
+        return notFilled;
+
+    }
+
 	@Override
 	@Transactional(readOnly = true)
 	public ImprovementCourseChoice findIcChoicesByLogin(String login) {
@@ -195,6 +240,7 @@ public class ChoiceServiceImpl implements ChoiceService {
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery("delete from JobSectorChoice").executeUpdate();
 		session.createQuery("delete from ImprovementCourseChoice").executeUpdate();
+        session.createQuery("delete from MasterChoice").executeUpdate();
 	}
 
 	@SuppressWarnings("unchecked")

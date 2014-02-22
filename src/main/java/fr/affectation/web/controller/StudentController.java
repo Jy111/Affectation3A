@@ -7,22 +7,16 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import fr.affectation.domain.choice.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.affectation.domain.choice.Choice;
-import fr.affectation.domain.choice.FullChoice;
-import fr.affectation.domain.choice.ImprovementCourseChoice;
-import fr.affectation.domain.choice.JobSectorChoice;
 import fr.affectation.service.choice.ChoiceService;
 import fr.affectation.service.configuration.ConfigurationService;
 import fr.affectation.service.documents.DocumentService;
@@ -69,9 +63,12 @@ public class StudentController {
 
 			ImprovementCourseChoice improvementCourseChoice = fullChoice.getImprovementCourseChoice();
 			JobSectorChoice jobSectorChoice = fullChoice.getJobSectorChoice();
+            MasterChoice masterChoice = fullChoice.getMasterChoice();
 
 			improvementCourseChoice.setLogin(login);
 			jobSectorChoice.setLogin(login);
+            masterChoice.setLogin(login);
+
 
 			if (improvementCourseChoice.getChoice1().equals(noSelectionMessage)) {
 				improvementCourseChoice.setChoice1("");
@@ -105,6 +102,10 @@ public class StudentController {
 				jobSectorChoice.setChoice5("");
 			}
 
+            if (masterChoice.getChoice().equals(noSelectionMessage)) {
+                masterChoice.setChoice("");
+            }
+
 			improvementCourseChoice.setChoice1(specializationService.getAbbreviationFromStringForForm(improvementCourseChoice.getChoice1()));
 			improvementCourseChoice.setChoice2(specializationService.getAbbreviationFromStringForForm(improvementCourseChoice.getChoice2()));
 			improvementCourseChoice.setChoice3(specializationService.getAbbreviationFromStringForForm(improvementCourseChoice.getChoice3()));
@@ -117,11 +118,15 @@ public class StudentController {
 			jobSectorChoice.setChoice4(specializationService.getAbbreviationFromStringForForm(jobSectorChoice.getChoice4()));
 			jobSectorChoice.setChoice5(specializationService.getAbbreviationFromStringForForm(jobSectorChoice.getChoice5()));
 
+            masterChoice.setChoice(specializationService.getAbbreviationFromStringForForm(masterChoice.getChoice()));
+
 			choiceService.save(improvementCourseChoice);
 			choiceService.save(jobSectorChoice);
+            choiceService.saveMasterChoice(masterChoice);
 
 			List<Integer> notFilledJs = choiceService.findElementNotFilledJobSector(login);
 			List<Integer> notFilledIc = choiceService.findElementNotFilledImprovementCourse(login);
+            boolean notFilledM = choiceService.findNotFilledMaster(login);
 
 			String nfJs = "Vous n'avez pas fait de choix ";
 			int index = 0;
@@ -147,13 +152,18 @@ public class StudentController {
 			}
 			nfIc += ".";
 
+            String nfM = "Vous n'avez pas rempli le champ Master";
+
 			model.addAttribute("notFilledJs", nfJs);
 			model.addAttribute("notFilledJsNumber", notFilledJs);
 			model.addAttribute("notFilledIc", nfIc);
 			model.addAttribute("notFilledIcNumber", notFilledIc);
+            model.addAttribute("notFilledM", nfM);
+            model.addAttribute("notFilledMaster", notFilledM);
 
 			model.addAttribute("icChoices", studentService.findIcChoicesFullSpecByLogin(login));
 			model.addAttribute("jsChoices", studentService.findJsChoicesFullSpecByLogin(login));
+            model.addAttribute("mchoice", studentService.findMChoiceFullSpecByLogin(login));
 
 			String path = request.getSession().getServletContext().getRealPath("/");
 
@@ -232,11 +242,13 @@ public class StudentController {
 			String path = request.getSession().getServletContext().getRealPath("/");
 			Choice choiceIc = choiceService.findImprovementCourseChoiceByLogin(login);
 			Choice choiceJs = choiceService.findJobSectorChoiceByLogin(login);
+            MasterChoice masterChoice = choiceService.findMasterChoiceByLogin(login);
 			model.addAttribute("hasFilledLetterIc", documentService.hasFilledLetterIc(path, login));
 			model.addAttribute("hasFilledLetterJs", documentService.hasFilledLetterJs(path, login));
 			model.addAttribute("hasFilledResume", documentService.hasFilledResume(path, login));
 			model.addAttribute("choiceIc", choiceIc);
 			model.addAttribute("choiceJs", choiceJs);
+            model.addAttribute("masterChoice", masterChoice);
 			model.addAttribute("fullChoice", new FullChoice());
 			model.addAttribute("paAvailable", studentService.findIcAvailableAsListWithSuperIc());
 			model.addAttribute("fmAvailable", specializationService.findJobSectors());
@@ -245,17 +257,17 @@ public class StudentController {
 			return "student/noSubmission";
 		}
 	}
-    @RequestMapping("/resume")
-    public String showResumeForChoice(Model model){
+    @RequestMapping("/resume/choice{choice}")
+    public String showResumeForChoice(@PathVariable int choice, Model model){
         if (configurationService.isSubmissionAvailable()){
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            String login = auth.getName();
-            Choice choiceIc = choiceService.findImprovementCourseChoiceByLogin(login);
-            Choice choiceJs = choiceService.findJobSectorChoiceByLogin(login);
 
+            model.addAttribute("choiceNumber", choice);
+            model.addAttribute("simpleImprovementCourses", studentService.findSimpleIcStats(choice));
+            model.addAttribute("simpleJobSectors", studentService.findSimpleJsStats(choice));
+            model.addAttribute("allIc", specializationService.findImprovementCourses());
+            model.addAttribute("allJs", specializationService.findJobSectors());
 
-            model.addAttribute("choiceIc", choiceIc);
-            model.addAttribute("choiceJs", choiceJs);
             return "student/resume";
 
         } else{

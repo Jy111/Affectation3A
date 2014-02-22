@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import fr.affectation.domain.choice.MasterChoice;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -528,6 +529,17 @@ public class StudentServiceImpl implements StudentService {
 		specs.add(jsc.getChoice5() != null ? specializationService.getJobSectorByAbbreviation(jsc.getChoice5()) : null);
 		return specs;
 	}
+
+    @Override
+    public Specialization findMChoiceFullSpecByLogin(String login){
+        MasterChoice masterChoice = choiceService.findMasterChoiceByLogin(login);
+        Specialization spec = null;
+        if (masterChoice.getChoice() != null){
+            spec = specializationService.getMasterByAbbreviation(masterChoice.getChoice());
+        }
+        return spec;
+
+    }
 
 	@Override
 	public List<List<ImprovementCourse>> findIcAvailableAsListWithSuperIc(){

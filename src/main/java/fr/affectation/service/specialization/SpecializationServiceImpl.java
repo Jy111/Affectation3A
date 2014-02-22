@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import fr.affectation.domain.specialization.Master;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -45,13 +46,23 @@ public class SpecializationServiceImpl implements SpecializationService {
 
     @Override
     @Transactional(readOnly = true)
+    public Master getMasterByAbbreviation(String abbreviation) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Master) session.get(Master.class, abbreviation);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public int getSpecializationByAbbreviation(String abbreviation){
         Session session = sessionFactory.getCurrentSession();
         if (session.get(ImprovementCourse.class, abbreviation) != null){
             return Specialization.IMPROVEMENT_COURSE;
         }
-        else{
+        else if (session.get(JobSector.class, abbreviation) != null){
             return Specialization.JOB_SECTOR;
+        }
+        else {
+            return Specialization.MASTER;
         }
     }
 
@@ -78,6 +89,17 @@ public class SpecializationServiceImpl implements SpecializationService {
 		return allIc;
 	}
 
+    @SuppressWarnings("unchecked")
+    @Override
+    @Transactional(readOnly = true)
+    public List<Master> findMasters() {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Master");
+        List<Master> allM = (List<Master>) query.list();
+        Collections.sort(allM);
+        return allM;
+    }
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<String> findJobSectorAbbreviations() {
@@ -97,6 +119,16 @@ public class SpecializationServiceImpl implements SpecializationService {
 		}
 		return allICAbb;
 	}
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<String> findMasterAbbreviations() {
+        List<String> allMAbb = new ArrayList<String>();
+        for (Master master : findMasters()){
+            allMAbb.add(master.getAbbreviation());
+        }
+        return allMAbb;
+    }
 
 	@Override
 	@Transactional
@@ -132,6 +164,20 @@ public class SpecializationServiceImpl implements SpecializationService {
 		Collections.sort(allJsForForm);
 		return allJsForForm;
 	}
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<String> findMasterStringsForForm() {
+        List<Master> allM = findMasters();
+        List<String> allMForForm = new ArrayList<String>();
+        String mForForm;
+        for (Master m : allM){
+            mForForm = m.getName() + " (" + m.getAbbreviation() + ")";
+            allMForForm.add(mForForm);
+        }
+        Collections.sort(allMForForm);
+        return allMForForm;
+    }
 	
 	@Override
 	public String getAbbreviationFromStringForForm(String forForm){
@@ -162,12 +208,21 @@ public class SpecializationServiceImpl implements SpecializationService {
 		return js == null ? "" : js.getName();
 	}
 
+    @Override
+    @Transactional(readOnly = true)
+    public String findNameFromMAbbreviation(String abbreviation) {
+        Session session = sessionFactory.getCurrentSession();
+        Master m = (Master) session.get(Master.class, abbreviation);
+        return m == null ? "" : m.getName();
+    }
+
 	@Override
 	@Transactional
 	public void deleteAll() {
 		Session session = sessionFactory.getCurrentSession();
 		session.createQuery("delete from JobSector").executeUpdate();
 		session.createQuery("delete from ImprovementCourse").executeUpdate();
+        session.createQuery("delete from Master").executeUpdate();
 	}
 
 }

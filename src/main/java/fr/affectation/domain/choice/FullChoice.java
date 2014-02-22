@@ -6,7 +6,9 @@ public class FullChoice {
 	
 	private JobSectorChoice jobSectorChoice = new JobSectorChoice();
 
-	public ImprovementCourseChoice getImprovementCourseChoice() {
+	private MasterChoice masterChoice = new MasterChoice();
+
+    public ImprovementCourseChoice getImprovementCourseChoice() {
 		return improvementCourseChoice;
 	}
 
@@ -22,4 +24,9 @@ public class FullChoice {
 	public void setJobSectorChoice(JobSectorChoice jobSectorChoice) {
 		this.jobSectorChoice = jobSectorChoice;
 	}
+
+    public MasterChoice getMasterChoice() { return masterChoice; }
+
+    public void setMasterChoice(MasterChoice MasterChoice) { this.masterChoice = masterChoice; }
+
 }
