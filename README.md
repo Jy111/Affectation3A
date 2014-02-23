@@ -71,6 +71,8 @@ modifier web-inf/jsp/admin/run/main/choices -> add master (details + synthese)
 modifier web-inf/jsp/admin/run/main/student/edit-form.jsp
 modifier web-inf/jsp/admin/run/main/student/student.jsp
 
+modifier web-inf/jsp/admin/run/settings/specializations.jsp
+
 modifier web-inf/jsp/responsable/student.jsp
 
 
