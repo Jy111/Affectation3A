@@ -30,6 +30,12 @@
 						${notFilledJs}
 					</div>
 				</c:if>
+                <c:if test="${notFilledMaster}">
+                    <div class="alert alert-error">
+                        <h4>Master</h4>
+                            ${notFilledM}
+                    </div>
+                </c:if>
 				<c:if test="${(!hasFilledLetterIc) || ((!hasFilledLetterJs) || (!hasFilledResume))}">
 					<div class="alert alert-error">
 						<h4>Documents</h4>
@@ -81,6 +87,29 @@
 							</c:forEach>
 						</tbody>
 					</table>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Master
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${mChoice != null}">
+                                            ${mChoice.stringForForm}
+                                        </c:when>
+                                        <c:otherwise>
+                                            ---------------------
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 				</div>
 				<c:if test="${((hasFilledLetterIc) || (hasFilledLetterJs) || (hasFilledResume))}">
 					<div class="alert alert-info">

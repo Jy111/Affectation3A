@@ -57,7 +57,9 @@ public class ResponsibleServiceTest {
 		for (int i=0; i<10; i++){
 			createAndSaveSpecialization("JobSector", "responsibleJS" + i, "abbJs" + i);
 			createAndSaveSpecialization("ImprovementCourse", "responsibleIC" + i, "abbIc" + i);
+
 		}
+
 		Assert.assertEquals(20, responsibleService.findResponsibles().size());
 	}
 

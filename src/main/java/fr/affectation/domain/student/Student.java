@@ -48,7 +48,7 @@ public class Student {
 		this.jsChoices = jsChoices;
 	}
 
-	public MasterChoice getMchoice() { return mChoice; }
+	public MasterChoice getMChoice() { return mChoice; }
 
     public void setMChoice(MasterChoice mChoice) { this.mChoice = mChoice; }
 

@@ -83,6 +83,26 @@
 								</tr>
 							</tbody>
 						</table>
+                        <table class="table table-bordered table-striped table-condensed">
+                            <thead>
+                            <tr>
+                                <th>
+                                        Master
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><b>Choix de master</b>
+                                <td>
+                                    ${student.mChoice.choice}
+
+                                </td>
+                            </tr>
+                            </tbody>
+
+
+                        </table>
 
 						<h4>Documents</h4>
 						<c:choose>

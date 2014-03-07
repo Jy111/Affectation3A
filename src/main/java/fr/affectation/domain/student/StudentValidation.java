@@ -17,11 +17,15 @@ public class StudentValidation {
 	
 	@Column
 	private boolean validatedIc = true;
+
+    @Column
+    private boolean validatedM = true;
 	
-	public StudentValidation(String login, boolean validationIc, boolean validationJs){
+	public StudentValidation(String login, boolean validationIc, boolean validationJs, boolean validationM){
 		this.login = login;
 		this.validatedJs = validationJs;
 		this.validatedIc = validationIc;
+        this.validatedM = validationM;
 	}
 	
 	public StudentValidation(String login){
@@ -54,5 +58,9 @@ public class StudentValidation {
 	public void setValidatedIc(boolean validatedIc) {
 		this.validatedIc = validatedIc;
 	}
+
+    public boolean isValidatedM() {return validatedM;}
+
+    public void setValidatedM(boolean validatedM) {this.validatedM = validatedM;}
 	
 }

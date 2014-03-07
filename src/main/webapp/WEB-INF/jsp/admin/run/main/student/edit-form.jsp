@@ -209,6 +209,70 @@
 					</c:choose>
 					<br />
 
+                    <legend>
+                        <h3>Master</h3>
+                    </legend>
+                    <c:choose>
+                        <c:when test="${choiceM == null}">
+                            <%
+                                String strChM = "masterChoice.choice";
+                                String strAttrM = "Choix";
+                                String strIdM = "selectM";
+                            %>
+                            <label path="<%=strChM%>"><%=strAttrM%></label>
+                            <form:select id="<%=strIdM%>" path="<%=strChM%>" class="combobox" style="min-width:550px">
+                                <option>------------------------------------- Pas de choix -------------------------------------</option>
+                                <c:forEach var="m" items="${mAvailable}">
+                                    <option>${m.stringForForm}</option>
+                                </c:forEach>
+                            </form:select>
+
+
+                        </c:when>
+                        <c:otherwise>
+                            <%
+                                String strChM = "masterChoice.choice";
+                                String strAttrM = "Choix ";
+                                String strIdM = "selectM";
+                            %>
+
+                            <c:set var="abb" value="${choiceM.choice}" />
+
+                            <c:choose>
+                                <c:when test="${abb == null}">
+                                    <label path="<%=strChM%>"><%=strAttrM%></label>
+                                    <form:select id="<%=strIdM%>" path="<%=strChM%>" class="combobox" style="min-width:550px">
+                                        <option>------------------------------------- Pas de choix -------------------------------------</option>
+                                        <c:forEach var="m" items="${mAvailable}">
+                                            <option>${m.stringForForm}</option>
+                                        </c:forEach>
+                                    </form:select>
+                                    <br />
+                                    <br />
+                                </c:when>
+                                <c:otherwise>
+                                    <label path="<%=strChM%>"><%=strAttrM%></label>
+                                    <form:select id="<%=strIdM%>" path="<%=strChM%>" class="combobox" style="min-width:550px">
+                                        <option>------------------------------------- Pas de choix -------------------------------------</option>
+                                        <c:forEach var="fm" items="${mAvailable}">
+                                            <c:choose>
+                                                <c:when test="${m.abbreviation == abb}">
+                                                    <option selected>${m.stringForForm}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option>${m.stringForForm}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </form:select>
+                                    <br />
+                                    <br />
+                                </c:otherwise>
+                            </c:choose>
+
+                        </c:otherwise>
+                    </c:choose>
+
 					<legend>
 						<h3>Documents (fichiers pdf)</h3>
 					</legend>

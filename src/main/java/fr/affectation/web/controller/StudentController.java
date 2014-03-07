@@ -163,7 +163,7 @@ public class StudentController {
 
 			model.addAttribute("icChoices", studentService.findIcChoicesFullSpecByLogin(login));
 			model.addAttribute("jsChoices", studentService.findJsChoicesFullSpecByLogin(login));
-            model.addAttribute("mchoice", studentService.findMChoiceFullSpecByLogin(login));
+            model.addAttribute("mChoice", studentService.findMChoiceFullSpecByLogin(login));
 
 			String path = request.getSession().getServletContext().getRealPath("/");
 
@@ -242,16 +242,17 @@ public class StudentController {
 			String path = request.getSession().getServletContext().getRealPath("/");
 			Choice choiceIc = choiceService.findImprovementCourseChoiceByLogin(login);
 			Choice choiceJs = choiceService.findJobSectorChoiceByLogin(login);
-            MasterChoice masterChoice = choiceService.findMasterChoiceByLogin(login);
+            MasterChoice choiceM = choiceService.findMasterChoiceByLogin(login);
 			model.addAttribute("hasFilledLetterIc", documentService.hasFilledLetterIc(path, login));
 			model.addAttribute("hasFilledLetterJs", documentService.hasFilledLetterJs(path, login));
 			model.addAttribute("hasFilledResume", documentService.hasFilledResume(path, login));
 			model.addAttribute("choiceIc", choiceIc);
 			model.addAttribute("choiceJs", choiceJs);
-            model.addAttribute("masterChoice", masterChoice);
+            model.addAttribute("choiceM", choiceM);
 			model.addAttribute("fullChoice", new FullChoice());
 			model.addAttribute("paAvailable", studentService.findIcAvailableAsListWithSuperIc());
 			model.addAttribute("fmAvailable", specializationService.findJobSectors());
+            model.addAttribute("mAvailable", specializationService.findMasters());
 			return "student/form";
 		} else {
 			return "student/noSubmission";

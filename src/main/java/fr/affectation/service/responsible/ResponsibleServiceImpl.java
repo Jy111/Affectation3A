@@ -29,9 +29,11 @@ public class ResponsibleServiceImpl implements ResponsibleService {
 	public List<String> findResponsibles() {
 		String queryIc = "select improvementCourse.responsibleLogin from ImprovementCourse improvementCourse";
 		String queryJs = "select jobSector.responsibleLogin from JobSector jobSector";
+        String queryM = "select master.responsibleLogin from Master master";
 		Session session = sessionFactory.getCurrentSession();
 		List<String> icResponsibles = (List<String>) session.createQuery(queryIc).list();
 		List<String> jsResponsibles = (List<String>) session.createQuery(queryJs).list();
+        List<String> mResponsibles = (List<String>) session.createQuery(queryM).list();
 		List<String> allResponsible = new ArrayList<String>();
 		for (String login : icResponsibles){
 			allResponsible.add(login);
@@ -39,6 +41,9 @@ public class ResponsibleServiceImpl implements ResponsibleService {
 		for (String login : jsResponsibles){
 			allResponsible.add(login);
 		}
+        for (String login : mResponsibles){
+            allResponsible.add(login);
+        }
 		return allResponsible;
 	}
     @Override

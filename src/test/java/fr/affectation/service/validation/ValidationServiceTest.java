@@ -25,25 +25,25 @@ public class ValidationServiceTest {
 	
 	@Test
 	public void saveValidationAccepted(){
-		validationService.save("login", true, true);
+		validationService.save("login", true, true, true);
 		Assert.assertTrue(validationService.isValidatedIc("login"));
 		Assert.assertTrue(validationService.isValidatedJs("login"));
 	}
 	
 	@Test
 	public void saveValidationRefused(){
-		validationService.save("login", false, false);
+		validationService.save("login", false, false, false);
 		Assert.assertTrue(!validationService.isValidatedIc("login"));
 		Assert.assertTrue(!validationService.isValidatedJs("login"));
 	}
 	
 	@Test
 	public void saveValidationCrossed(){
-		validationService.save("login", true, false);
+		validationService.save("login", true, false, true);
 		Assert.assertTrue(validationService.isValidatedIc("login"));
 		Assert.assertTrue(!validationService.isValidatedJs("login"));
 		
-		validationService.save("login2", false, true);
+		validationService.save("login2", false, true, true);
 		Assert.assertTrue(!validationService.isValidatedIc("login2"));
 		Assert.assertTrue(validationService.isValidatedJs("login2"));
 	}
@@ -51,7 +51,7 @@ public class ValidationServiceTest {
 	@Test
 	public void saveStudentNumber(){
 		for (int i=0; i<10; i++){
-			validationService.save("login"+i, true, true);
+			validationService.save("login"+i, true, true, true);
 		}
 		Assert.assertTrue(validationService.findStudentValidatedIcLogins().size() == 10);
 	}
@@ -59,7 +59,7 @@ public class ValidationServiceTest {
 	@Test
 	public void deleteAllStudents(){
 		for (int i=0; i<10; i++){
-			validationService.save("login"+i, true, true);
+			validationService.save("login"+i, true, true, true);
 		}
 		validationService.removeAll();
 		Assert.assertTrue(validationService.findStudentValidatedIcLogins().size() == 0);
@@ -67,7 +67,7 @@ public class ValidationServiceTest {
 	
 	@Test
 	public void deletStudentByLogin(){
-		validationService.save("login", true, true);
+		validationService.save("login", true, true, true);
 		validationService.remove("login");
 		Assert.assertFalse(validationService.isInValidationProcess("login"));
 		Assert.assertFalse(validationService.isValidatedIc("login"));
@@ -76,7 +76,7 @@ public class ValidationServiceTest {
 	
 	@Test
 	public void updateValidationIc(){
-		validationService.save("login", true, true);
+		validationService.save("login", true, true, true);
 		validationService.updateIcValidation("login", false);
 		Assert.assertFalse(validationService.isValidatedIc("login"));
 		Assert.assertTrue(validationService.isValidatedJs("login"));
@@ -85,7 +85,7 @@ public class ValidationServiceTest {
 	
 	@Test
 	public void updateValidationJs(){
-		validationService.save("login", true, true);
+		validationService.save("login", true, true, true);
 		validationService.updateJsValidation("login", false);
 		Assert.assertFalse(validationService.isValidatedJs("login"));
 		Assert.assertTrue(validationService.isValidatedIc("login"));
@@ -94,26 +94,26 @@ public class ValidationServiceTest {
 	
 	@Test
 	public void findStudentValidatedIcTrue(){
-		validationService.save("login", true, true);
+		validationService.save("login", true, true, true);
 		Assert.assertTrue(validationService.findStudentValidatedIcLogins().contains("login"));
 	}
 	
 	@Test
 	public void findStudentValidatedIcFalse(){
-		validationService.save("login", true, true);
+		validationService.save("login", true, true, true);
 		validationService.updateIcValidation("login", false);
 		Assert.assertFalse(validationService.findStudentValidatedIcLogins().contains("login"));
 	}
 	
 	@Test
 	public void findStudentValidatedJsTrue(){
-		validationService.save("login", true, true);
+		validationService.save("login", true, true, true);
 		Assert.assertTrue(validationService.findStudentValidatedJsLogins().contains("login"));
 	}
 	
 	@Test
 	public void findStudentValidatedJsFalse(){
-		validationService.save("login", true, true);
+		validationService.save("login", true, true, true);
 		validationService.updateJsValidation("login", false);
 		Assert.assertFalse(validationService.findStudentValidatedJsLogins().contains("login"));
 	}

@@ -4,15 +4,19 @@ import java.util.List;
 
 public interface ValidationService {
 	
-	public void save(String login, boolean validatedIc, boolean validatedJs);
+	public void save(String login, boolean validatedIc, boolean validatedJs, boolean validatedM);
 	
 	public void updateIcValidation(String login, boolean validation);
 	
 	public void updateJsValidation(String login, boolean validation);
+
+    public void updateMValidation(String login, boolean validation);
 	
 	public boolean isValidatedIc(String login);
 	
 	public boolean isValidatedJs(String login);
+
+    public boolean isValidatedM(String login);
 	
 	public boolean isInValidationProcess(String login);
 	

@@ -23,9 +23,9 @@ public class ValidationServiceImpl implements ValidationService {
 	
 	@Override
 	@Transactional
-	public void save(String login, boolean validatedIc, boolean validatedJs) {
+	public void save(String login, boolean validatedIc, boolean validatedJs, boolean validatedM) {
 		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(new StudentValidation(login, validatedIc, validatedJs));
+		session.saveOrUpdate(new StudentValidation(login, validatedIc, validatedJs, validatedM));
 	}
 	
 	@Override
@@ -43,6 +43,14 @@ public class ValidationServiceImpl implements ValidationService {
 		StudentValidation studentValidation = (StudentValidation) session.get(StudentValidation.class, login);
 		studentValidation.setValidatedJs(validation);
 	}
+
+    @Override
+    @Transactional
+    public void updateMValidation(String login, boolean validation) {
+        Session session = sessionFactory.getCurrentSession();
+        StudentValidation studentValidation = (StudentValidation) session.get(StudentValidation.class, login);
+        studentValidation.setValidatedM(validation);
+    }
 
 	@Override
 	@Transactional(readOnly = true)
@@ -65,6 +73,17 @@ public class ValidationServiceImpl implements ValidationService {
 		}
 		return false;
 	}
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean isValidatedM(String login) {
+        Session session = sessionFactory.getCurrentSession();
+        StudentValidation studentValidation = (StudentValidation) session.get(StudentValidation.class, login);
+        if (!(studentValidation == null)){
+            return studentValidation.isValidatedM();
+        }
+        return false;
+    }
 	
 	@Override
 	@Transactional(readOnly = true)

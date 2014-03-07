@@ -38,10 +38,8 @@ public class MasterChoice {
         if (getClass() != obj.getClass())
             return false;
         MasterChoice other = (MasterChoice) obj;
-        if (choice == null){
+        if (choice == null ){
             if (other.choice != null)
-                return false;
-            else if (!choice.equals(other.choice))
                 return false;
         }
         if (login == null) {

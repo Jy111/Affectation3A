@@ -75,4 +75,4 @@ modifier web-inf/jsp/admin/run/settings/specializations.jsp
 
 modifier web-inf/jsp/responsable/student.jsp
 
-
+REMARQUE: web-inf/jsp/admin/run/main/student/student.jsp <=>  web-inf/jsp/responsable/student.jsp

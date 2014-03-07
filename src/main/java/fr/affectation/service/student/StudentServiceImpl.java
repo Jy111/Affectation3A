@@ -254,7 +254,7 @@ public class StudentServiceImpl implements StudentService {
 	public void populateValidation() {
 		validationService.removeAll();
 		for (String login : agapCacheService.findStudentConcernedLogins()) {
-			validationService.save(login, true, true);
+			validationService.save(login, true, true, true);
 		}
 	}
 
@@ -363,8 +363,10 @@ public class StudentServiceImpl implements StudentService {
 			student.setHasFilledLetterJs(documentService.hasFilledLetterJs(path, login));
 			ImprovementCourseChoice icc = choiceService.findIcChoicesByLogin(login);
 			JobSectorChoice jsc = choiceService.findJsChoicesByLogin(login);
+            MasterChoice mc = choiceService.findMasterChoiceByLogin(login);
 			student.setIcChoices(icc == null ? new ImprovementCourseChoice() : icc);
 			student.setJsChoices(jsc == null ? new JobSectorChoice() : jsc);
+            student.setMChoice(mc == null ? new MasterChoice() : mc);
 			return student;
 		} else {
 			return null;

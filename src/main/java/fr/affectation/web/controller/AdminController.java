@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import fr.affectation.domain.choice.*;
+import fr.affectation.domain.specialization.Master;
 import org.quartz.SchedulerException;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -171,6 +172,7 @@ public class AdminController {
 			model.addAttribute("when", new When());
 			model.addAttribute("paAvailable", studentService.findIcAvailableAsListWithSuperIc());
 			model.addAttribute("fmAvailable", specializationService.findJobSectors());
+            model.addAttribute("mAvailable", specializationService.findMasters());
 			Date date = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 			model.addAttribute("now", dateFormat.format(date));
@@ -202,6 +204,7 @@ public class AdminController {
 			if (result.hasErrors()) {
 				model.addAttribute("paAvailable", studentService.findIcAvailableAsListWithSuperIc());
 				model.addAttribute("fmAvailable", specializationService.findJobSectors());
+                model.addAttribute("mAvailable", specializationService.findMasters());
 				return "admin/config/index";
 			} else {
 				List<Date> allDates = new ArrayList<Date>();
@@ -220,12 +223,14 @@ public class AdminController {
 				if (!areDatesSuccessive) {
 					model.addAttribute("paAvailable", studentService.findIcAvailableAsListWithSuperIc());
 					model.addAttribute("fmAvailable", specializationService.findJobSectors());
+                    model.addAttribute("mAvailable", specializationService.findMasters());
 					model.addAttribute("alertMessage", "Les dates doivent êtres successives.");
 					return "admin/config/index";
 				} else {
 					if (!((specializationService.findImprovementCourses().size() >= 5) && (specializationService.findJobSectors().size() >= 5))) {
 						model.addAttribute("paAvailable", studentService.findIcAvailableAsListWithSuperIc());
 						model.addAttribute("fmAvailable", specializationService.findJobSectors());
+                        model.addAttribute("mAvailable", specializationService.findMasters());
 						model.addAttribute("alertMessage",
 								"Pour pouvoir lancer le processus, il est nécessaire qu'il y ait au moins 5 parcours d'approfondissement et 5 filières métier.");
 						return "admin/config/index";
@@ -234,6 +239,7 @@ public class AdminController {
 						if (!configurationService.initialize(request.getSession().getServletContext().getRealPath("/"))) {
 							model.addAttribute("paAvailable", studentService.findIcAvailableAsListWithSuperIc());
 							model.addAttribute("fmAvailable", specializationService.findJobSectors());
+                            model.addAttribute("mAvailable", specializationService.findMasters());
 							model.addAttribute("alertMessage", "Impossible de sauvegarder la configuration.");
 							return "admin/config/index";
 						}
@@ -293,6 +299,30 @@ public class AdminController {
 		return run ? "redirect:/admin/run/settings/specializations" : "redirect:/admin/config";
 	}
 
+    @RequestMapping("/common/edit/m/{abbreviation}")
+    public String editM(@PathVariable String abbreviation, Model model) {
+        model.addAttribute("specialization", specializationService.getMasterByAbbreviation(abbreviation));
+        model.addAttribute("alreadyExists", true);
+        model.addAttribute("state", configurationService.isRunning() ? "run" : "config");
+        return "admin/common/edit-master";
+    }
+
+    @RequestMapping(value = "/common/process-edition/m", method = RequestMethod.POST)
+    public String saveMaster(@ModelAttribute("specialization") @Valid Master specialization, BindingResult result, Model model,
+                                        RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            model.addAttribute("state", configurationService.isRunning() ? "run" : "config");
+            return "admin/common/edit-master";
+        }
+        specializationService.save(specialization);
+        boolean run = configurationService.isRunning();
+        if (!run) {
+            redirectAttributes.addFlashAttribute("successM", "Le Master <b>" + specialization.getName()
+                    + "</b> a bien été modifié ou crée.");
+        }
+        return run ? "redirect:/admin/run/settings/specializations" : "redirect:/admin/config";
+    }
+
 	@RequestMapping(value = "/config/new/job-sector", method = RequestMethod.GET)
 	public String addNewJobSector(Model model) {
 		if (!configurationService.isRunning()) {
@@ -317,6 +347,18 @@ public class AdminController {
 		}
 	}
 
+    @RequestMapping(value = "/config/new/master", method = RequestMethod.GET)
+    public String addNewMaster(Model model) {
+        if (!configurationService.isRunning()) {
+            model.addAttribute("specialization", new Master());
+            model.addAttribute("alreadyExists", false);
+            model.addAttribute("state", "config");
+            return "admin/common/edit-master";
+        } else {
+            return "redirect:/admin";
+        }
+    }
+
 	@RequestMapping("/config/delete/job-sector/{abbreviation}")
 	public String deleteJobSector(@PathVariable String abbreviation, RedirectAttributes redirectAttributes) {
 		if (!configurationService.isRunning()) {
@@ -331,6 +373,21 @@ public class AdminController {
 			return "redirect:/admin";
 		}
 	}
+
+    @RequestMapping("/config/delete/master/{abbreviation}")
+    public String deleteMaster(@PathVariable String abbreviation, RedirectAttributes redirectAttributes) {
+        if (!configurationService.isRunning()) {
+            Specialization specialization = specializationService.getJobSectorByAbbreviation(abbreviation);
+            specializationService.delete(specialization);
+            boolean run = configurationService.isRunning();
+            if (!run) {
+                redirectAttributes.addFlashAttribute("successM", "La filière métier <b>" + specialization.getName() + "</b> a bien été supprimée.");
+            }
+            return "redirect:/admin/config";
+        } else {
+            return "redirect:/admin";
+        }
+    }
 
 	@RequestMapping("/config/delete/improvement-course/{abbreviation}")
 	public String deleteImprovementCourse(@PathVariable String abbreviation, RedirectAttributes redirectAttributes) {
@@ -354,11 +411,13 @@ public class AdminController {
 			model.addAttribute("student", studentService.retrieveStudentByLogin(login, request.getSession().getServletContext().getRealPath("/")));
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("master", specializationService.findMasters());
 			boolean validationAvailable = !configurationService.isSubmissionAvailable();
 			model.addAttribute("validationAvailable", validationAvailable);
 			if (validationAvailable) {
 				model.addAttribute("isValidatedIc", validationService.isValidatedIc(login) ? "true" : "false");
 				model.addAttribute("isValidatedJs", validationService.isValidatedJs(login) ? "true" : "false");
+                model.addAttribute("isValidatedM", validationService.isValidatedM(login) ? "true" : "false");
 			}
 			return "admin/run/main/student/student";
 		} else {
@@ -372,16 +431,17 @@ public class AdminController {
 			String path = request.getSession().getServletContext().getRealPath("/");
 			Choice choiceIc = choiceService.findImprovementCourseChoiceByLogin(login);
 			Choice choiceJs = choiceService.findJobSectorChoiceByLogin(login);
-            MasterChoice masterChoice = choiceService.findMasterChoiceByLogin(login);
+            MasterChoice choiceM = choiceService.findMasterChoiceByLogin(login);
 			model.addAttribute("hasFilledLetterIc", documentService.hasFilledLetterIc(path, login));
 			model.addAttribute("hasFilledLetterJs", documentService.hasFilledLetterJs(path, login));
 			model.addAttribute("hasFilledResume", documentService.hasFilledResume(path, login));
 			model.addAttribute("choiceIc", choiceIc);
-			model.addAttribute("choiceJs", choiceJs);
-            model.addAttribute("masterChoice", masterChoice);
+            model.addAttribute("choiceJs", choiceJs);
+            model.addAttribute("choiceM", choiceM);
 			model.addAttribute("fullChoice", new FullChoice());
 			model.addAttribute("paAvailable", studentService.findIcAvailableAsListWithSuperIc());
 			model.addAttribute("fmAvailable", specializationService.findJobSectors());
+            model.addAttribute("mAvailable", specializationService.findMasters());
 			model.addAttribute("login", login);
 			return "admin/run/main/student/edit-form";
 		} else {
@@ -615,6 +675,7 @@ public class AdminController {
 			model.addAttribute("mail2Activated", configurationService.isSecondMailActivated());
 			model.addAttribute("paAvailable", studentService.findIcAvailableAsListWithSuperIc());
 			model.addAttribute("fmAvailable", specializationService.findJobSectors());
+            model.addAttribute("mAvailable", specializationService.findMasters());
 			return "admin/run/settings/specializations";
 		} else {
 			return "redirect:/admin";

@@ -39,6 +39,10 @@ $(document).ready(function() {
 	updateFmSelect(fm4.options[fm4.selectedIndex].text, 'selectFm4');
 	updateFmSelect(fm5.options[fm5.selectedIndex].text, 'selectFm5');
 
+    var m = document.getElementById('selectM');
+
+    updateMSelect(m.options[m.selectedIndex].text, 'selectM');
+
 });
 
 function refreshPa(idChangedStr, value){
@@ -321,4 +325,41 @@ function updateFmSelect(value, id) {
 			}
 		}
 	}
+}
+
+function updateMSelect(value, id) {
+    if (value != "------------------------------------- Pas de choix -------------------------------------") {
+
+        var select = document.getElementById("selectM");
+        var index = 0;
+
+        select.remove(index);
+
+
+        var select = document.getElementById("selectM");
+
+        var select_options = new Array();
+        for (j = 0; j < select.options.length; j++) {
+            select_options[j] = select.options[j].text;
+        }
+
+
+
+        for (j = 0; j < select_options.length; j++) {
+            option = select_options[j];
+
+        }
+
+
+    }
+
+    else {
+        var select = document.getElementById("selectM");
+
+        var select_options = new Array();
+        for (j = 0; j < select.options.length; j++) {
+            select_options[j] = select.options[j].text;
+        }
+
+    }
 }

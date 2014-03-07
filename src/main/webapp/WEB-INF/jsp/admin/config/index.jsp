@@ -131,6 +131,25 @@
                     <br /> <br />
                 </div>
             </center>
+            <div class="span4">
+                <center>
+                    <h2>
+                        Masters <a href="${pageContext.request.contextPath}/admin/config/new/master" class="btn btn-info" title="Ajouter"><i class="icon-white icon-plus"></i></a>
+                    </h2>
+                </center>
+                <c:forEach var="m" items="${mAvailable}">
+                    <br/>
+                    ${m.stringForForm}
+                    <div class="btn-group pull-right">
+                        <a href="${pageContext.request.contextPath}/admin/common/edit/m/${m.abbreviation}" class="btn btn-primary btn-small" title="Modifier"><i class="icon-white icon-pencil"></i></a>
+                        <a href="${pageContext.request.contextPath}/admin/config/delete/master/${m.abbreviation}" class="btn btn-danger btn-small" title="Supprimer"><i class="icon-white icon-remove"></i></a>
+                    </div>
+
+                    <br />
+                    <br />
+                </c:forEach>
+
+            </div>
         </div>
     </form:form>
 </div>

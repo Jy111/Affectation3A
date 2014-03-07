@@ -85,13 +85,13 @@ public class ChoiceServiceImpl implements ChoiceService {
 		List<ImprovementCourseChoice> allChoices = query.list();
 		return allChoices;
 	}
-
+    @SuppressWarnings("unchecked")
     @Override
     @Transactional(readOnly = true)
     public MasterChoice findMasterChoice() {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from MasterChoice");
-        @SuppressWarnings("unchecked")
+
         MasterChoice choice = (MasterChoice) query.uniqueResult();
         return choice;
     }
@@ -215,7 +215,6 @@ public class ChoiceServiceImpl implements ChoiceService {
             notFilled = false;
         }
         return notFilled;
-
     }
 
 	@Override
