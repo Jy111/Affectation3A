@@ -60,19 +60,19 @@ L'application se déploie sur /affectation3A (configuré dans le pom.xml). Si ce
 ***************************************************************
 A faire:
 
-modifier web-inf/jsp/student/form.jsp
-modifier web-inf/jsp/student/success.jsp
+modifier web-inf/jsp/student/form.jsp --> FAIT
+modifier web-inf/jsp/student/success.jsp  --> BUG boolean
 
-modifier web-inf/jsp/admin/common/edit-specialization.jsp
-modifier web-inf/jsp/admin/config/index.jsp
+modifier web-inf/jsp/admin/common/edit-specialization.jsp  --> inutile utilisation de edit-master.jsp
+modifier web-inf/jsp/admin/config/index.jsp   --> FAIT
 
 modifier web-inf/jsp/admin/run/main/choices -> add master (details + synthese)
 
-modifier web-inf/jsp/admin/run/main/student/edit-form.jsp
-modifier web-inf/jsp/admin/run/main/student/student.jsp
+modifier web-inf/jsp/admin/run/main/student/edit-form.jsp      --> FAIT
+modifier web-inf/jsp/admin/run/main/student/student.jsp       --> BUG
 
 modifier web-inf/jsp/admin/run/settings/specializations.jsp
 
-modifier web-inf/jsp/responsable/student.jsp
+modifier web-inf/jsp/responsable/student.jsp   --> BUG
 
 REMARQUE: web-inf/jsp/admin/run/main/student/student.jsp <=>  web-inf/jsp/responsable/student.jsp

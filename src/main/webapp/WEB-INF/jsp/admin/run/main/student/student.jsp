@@ -137,6 +137,12 @@ function query(type){
 					<c:forEach var="spec" items="${allJs}" varStatus="status">
 						<li><a href="${pageContext.request.contextPath}/admin/run/main/choices/job-sector/details/${spec.abbreviation}/choice1">${spec.abbreviation}</a></li>
 					</c:forEach>
+
+                    <li class="nav-header">Masters</li>
+                    <li><a href="${pageContext.request.contextPath}/admin/run/main/choices/master/synthese">Synthèse</a></li>
+                    <c:forEach var="spec" items="${allM}" varStatus="status">
+                        <li><a href="${pageContext.request.contextPath}/admin/run/main/choices/master/details/${spec.abbreviation}">${spec.abbreviation}</a></li>
+                    </c:forEach>
 				</ul>
 			</div>
 
@@ -189,6 +195,26 @@ function query(type){
 								</tr>
 							</tbody>
 						</table>
+                        <table class="table table-bordered table-striped table-condensed">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Master
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><b>Choix de master</b>
+                                <td>
+                                        ${student.mChoice.choice}
+
+                                </td>
+                            </tr>
+                            </tbody>
+
+
+                        </table>
 						
 						<c:if test="${validationAvailable}">
 							<h4>Validation</h4>

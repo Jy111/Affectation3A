@@ -61,6 +61,12 @@
 					<c:forEach var="spec" items="${allJs}" varStatus="status">
 						<li><a href="${pageContext.request.contextPath}/admin/run/main/choices/job-sector/details/${spec.abbreviation}/choice1">${spec.abbreviation}</a></li>
 					</c:forEach>
+
+                    <li class="nav-header">Masters</li>
+                    <li><a href="${pageContext.request.contextPath}/admin/run/main/choices/master/synthese">Synthèse</a></li>
+                    <c:forEach var="spec" items="${allM}" varStatus="status">
+                        <li><a href="${pageContext.request.contextPath}/admin/run/main/choices/master/details/${spec.abbreviation}">${spec.abbreviation}</a></li>
+                    </c:forEach>
 				</ul>
 			</div>
 			<div class="span7">

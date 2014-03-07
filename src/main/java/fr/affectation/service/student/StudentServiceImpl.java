@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import fr.affectation.domain.choice.MasterChoice;
+import fr.affectation.domain.specialization.*;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -22,12 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import fr.affectation.domain.choice.ImprovementCourseChoice;
 import fr.affectation.domain.choice.JobSectorChoice;
-import fr.affectation.domain.specialization.ComparatorListIc;
-import fr.affectation.domain.specialization.ImprovementCourse;
-import fr.affectation.domain.specialization.JobSector;
-import fr.affectation.domain.specialization.SimpleSpecializationWithList;
-import fr.affectation.domain.specialization.SimpleSpecializationWithNumber;
-import fr.affectation.domain.specialization.Specialization;
 import fr.affectation.domain.student.SimpleStudent;
 import fr.affectation.domain.student.SimpleStudentWithOrigin;
 import fr.affectation.domain.student.SimpleStudentWithValidation;
@@ -166,6 +161,21 @@ public class StudentServiceImpl implements StudentService {
 		Collections.sort(allSimpleStudents);
 		return allSimpleStudents;
 	}
+
+    @Override
+    public List<SimpleStudent> findSimpleStudentsBySpecialization(Specialization specialization) {
+        List<String> allLogins = choiceService.findLoginsBySpecialization(specialization);
+        List<SimpleStudent> allSimpleStudents = new ArrayList<SimpleStudent>();
+        List<String> studentsToExcludeLogins = exclusionService.findStudentToExcludeLogins();
+        Map<String, String> nameLoginMap = agapCacheService.findNamesForAListOfLogins(allLogins);
+        for (String login : allLogins) {
+            if (!studentsToExcludeLogins.contains(login)) {
+                allSimpleStudents.add(new SimpleStudent(login, nameLoginMap.get(login)));
+            }
+        }
+        Collections.sort(allSimpleStudents);
+        return allSimpleStudents;
+    }
 	
 	@Override
 	public List<String> findLoginsByOrderChoiceAndSpecialization(int orderChoice, Specialization specialization) {
@@ -173,6 +183,13 @@ public class StudentServiceImpl implements StudentService {
 		Collections.sort(allLogins);
 		return allLogins;
 	}
+
+    @Override
+    public List<String> findLoginsBySpecialization(Specialization specialization) {
+        List<String> allLogins = choiceService.findLoginsBySpecialization(specialization);
+        Collections.sort(allLogins);
+        return allLogins;
+    }
 	
 	@Override
 	public List<SimpleSpecializationWithNumber> findSimpleIcStats(int choice) {
@@ -239,6 +256,17 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return allStudentsForAllJs;
 	}
+
+    @Override
+    public List<List<SimpleStudent>> findSimpleStudentsForAllM() {
+        List<Master> allM = specializationService.findMasters();
+        List<List<SimpleStudent>> allStudentsForAllM = new ArrayList<List<SimpleStudent>>();
+        for (Master master : allM) {
+            allStudentsForAllM.add(findSimpleStudentsBySpecialization(master));
+        }
+        return allStudentsForAllM;
+    }
+
 
 	@Override
 	public List<List<SimpleStudentWithValidation>> findSimpleStudentsWithValidationForAllJsByOrder(int order) {

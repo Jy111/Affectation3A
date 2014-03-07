@@ -32,6 +32,8 @@ public interface ChoiceService {
     public MasterChoice findMasterChoice();
 	
 	public List<String> findLoginsByOrderChoiceAndSpecialization(int orderChoice, Specialization specialization);
+
+    public List<String> findLoginsBySpecialization(Specialization specialization);
 	
 	public List<Integer> findElementNotFilledImprovementCourse(String login);
 	

@@ -62,6 +62,22 @@
                     <br />
 				</c:forEach>
 			</div>
+
+            <div class="span5">
+            <h2>Master</h2>
+            <c:forEach var="m" items="${mAvailable}" varStatus="status">
+                <c:choose>
+                    <c:when test="${status.index != 0}">
+                        <br />
+                    </c:when>
+                </c:choose>
+                ${m.stringForForm}
+                <a href="${pageContext.request.contextPath}/admin/common/edit/m/${m.abbreviation}"
+                   title="Modifier" class="btn btn-primary btn-small pull-right"><i class="icon-white icon-pencil"></i></a>
+                <br />
+                <br />
+            </c:forEach>
+        </div>
 		</div>
 	</div>
 </body>

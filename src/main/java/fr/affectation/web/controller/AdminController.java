@@ -411,6 +411,7 @@ public class AdminController {
 			model.addAttribute("student", studentService.retrieveStudentByLogin(login, request.getSession().getServletContext().getRealPath("/")));
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
             model.addAttribute("master", specializationService.findMasters());
 			boolean validationAvailable = !configurationService.isSubmissionAvailable();
 			model.addAttribute("validationAvailable", validationAvailable);
@@ -953,6 +954,7 @@ public class AdminController {
 			model.addAttribute("order", order);
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 			model.addAttribute("running", !configurationService.isValidationForAdminAvailable());
 			model.addAttribute("allStudents",
 					configurationService.isValidationForAdminAvailable() ? studentService.findSimpleStudentsWithValidationForAllIcByOrder(order)
@@ -969,6 +971,7 @@ public class AdminController {
 			model.addAttribute("order", order);
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 			model.addAttribute("running", !configurationService.isValidationForAdminAvailable());
 			model.addAttribute("allStudents",
 					configurationService.isValidationForAdminAvailable() ? studentService.findSimpleStudentsWithValidationForAllJsByOrder(order)
@@ -979,6 +982,21 @@ public class AdminController {
 		}
 	}
 
+    @RequestMapping("/run/main/choices/master/synthese")
+    public String allResultsM( Model model) {
+        if (configurationService.isRunning()) {
+            model.addAttribute("allIc", specializationService.findImprovementCourses());
+            model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
+            model.addAttribute("running", !configurationService.isValidationForAdminAvailable());
+            model.addAttribute("allStudents", studentService.findSimpleStudentsForAllM());
+
+            return "admin/run/main/choices/master/synthese";
+        } else {
+            return "redirect:/admin";
+        }
+    }
+
 	@RequestMapping("/run/main/choices/improvement-course/details/{abbreviation}/choice{order}")
 	public String resultsIcDetails(@PathVariable String abbreviation, @PathVariable int order, Model model) {
 		if (configurationService.isRunning()) {
@@ -986,6 +1004,7 @@ public class AdminController {
 			model.addAttribute("order", order);
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 			model.addAttribute("abbreviation", abbreviation);
 			model.addAttribute("specialization", improvementCourse);
 			model.addAttribute(
@@ -1006,6 +1025,7 @@ public class AdminController {
 			model.addAttribute("order", order);
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 			model.addAttribute("abbreviation", abbreviation);
 			model.addAttribute("specialization", jobSector);
 			model.addAttribute(
@@ -1019,6 +1039,23 @@ public class AdminController {
 		}
 	}
 
+    @RequestMapping("/run/main/choices/master/details/{abbreviation}")
+    public String resultsMDetails(@PathVariable String abbreviation, Model model) {
+        if (configurationService.isRunning()) {
+            Master master = specializationService.getMasterByAbbreviation(abbreviation);
+            model.addAttribute("allIc", specializationService.findImprovementCourses());
+            model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
+            model.addAttribute("abbreviation", abbreviation);
+            model.addAttribute("specialization", master);
+            model.addAttribute("allStudents", studentService.findSimpleStudentsBySpecialization(master));
+            model.addAttribute("running", !configurationService.isValidationForAdminAvailable());
+            return "admin/run/main/choices/master/details";
+        } else {
+            return "redirect:/admin";
+        }
+    }
+
 	@RequestMapping("/run/main/statistics/choice{choice}")
 	public String pieChartsForChoice(@PathVariable int choice, Model model) {
 		if (configurationService.isRunning()) {
@@ -1027,6 +1064,7 @@ public class AdminController {
 			model.addAttribute("simpleJobSectors", studentService.findSimpleJsStats(choice));
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 			return "admin/run/main/statistics/choice";
 		} else {
 			return "redirect:/admin";
@@ -1044,6 +1082,7 @@ public class AdminController {
 			model.addAttribute("specializations", studentService.findChoiceRepartitionKnowingOne(1, choice, specialization));
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 			return "admin/run/main/statistics/repartition-other-choice";
 		} else {
 			return "redirect:/admin/";
@@ -1058,6 +1097,7 @@ public class AdminController {
 			model.addAttribute("inverseSpecializations", studentService.findInverseRepartition(specialization));
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 			return "admin/run/main/statistics/inverse-repartition";
 		} else {
 			return "redirect:/admin";
@@ -1072,6 +1112,7 @@ public class AdminController {
 			model.addAttribute("inverseSpecializations", studentService.findInverseRepartition(specialization));
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 			return "admin/run/main/statistics/inverse-repartition";
 		} else {
 			return "redirect:/admin";
@@ -1088,6 +1129,7 @@ public class AdminController {
 			model.addAttribute("nbreNo", numbersForCategories.get("empty"));
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 			return "admin/run/main/statistics/form-synthese";
 		} else {
 			return "redirect:/admin";
@@ -1107,6 +1149,7 @@ public class AdminController {
 			model.addAttribute("results", results);
 			model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 			return "admin/run/main/statistics/form-details";
 		} else {
 			return "redirect:/admin";

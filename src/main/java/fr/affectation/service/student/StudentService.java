@@ -29,8 +29,12 @@ public interface StudentService {
 	public void populateValidation();
 
 	public List<SimpleStudent> findSimpleStudentsByOrderChoiceAndSpecialization(int orderChoice, Specialization specialization);
+
+    public List<SimpleStudent> findSimpleStudentsBySpecialization(Specialization specialization);
 	
 	public List<String> findLoginsByOrderChoiceAndSpecialization(int orderChoice, Specialization specialization);
+
+    public List<String> findLoginsBySpecialization(Specialization specialization);
 
 	public List<SimpleStudentWithValidation> findSimpleStudentsWithValidationByOrderChoiceAndSpecialization(int orderChoice, Specialization specialization);
 
@@ -41,6 +45,8 @@ public interface StudentService {
 	public List<List<SimpleStudent>> findSimpleStudentsForAllJsByOrder(int order);
 
 	public List<List<SimpleStudentWithValidation>> findSimpleStudentsWithValidationForAllJsByOrder(int order);
+
+    public List<List<SimpleStudent>> findSimpleStudentsForAllM();
 
 	public List<SimpleStudent> findStudentsForCategorySynthese(String category, String path);
 
