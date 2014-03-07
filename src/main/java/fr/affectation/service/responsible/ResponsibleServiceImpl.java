@@ -66,7 +66,10 @@ public class ResponsibleServiceImpl implements ResponsibleService {
         for(JobSector jobSector : (List<JobSector>)criteria.list()){
             improvementCourseAndJobSectorListAbbreviation.add(jobSector.getAbbreviation());
         }
+
         return improvementCourseAndJobSectorListAbbreviation;
+
+
 
     }
 

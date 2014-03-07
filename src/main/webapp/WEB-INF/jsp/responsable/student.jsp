@@ -95,8 +95,7 @@
                             <tr>
                                 <td><b>Choix de master</b>
                                 <td>
-                                    ${student.mChoice.choice}
-
+                                    ${mChoice.choice}
                                 </td>
                             </tr>
                             </tbody>

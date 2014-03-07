@@ -268,6 +268,7 @@ public class StudentController {
             model.addAttribute("simpleJobSectors", studentService.findSimpleJsStats(choice));
             model.addAttribute("allIc", specializationService.findImprovementCourses());
             model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
 
             return "student/resume";
 

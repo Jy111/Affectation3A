@@ -180,6 +180,7 @@ public class ResponsibleController {
                         .getImprovementCourseByAbbreviation(abbreviation) : specializationService.getJobSectorByAbbreviation(abbreviation);
                 model.addAttribute("specialization", specialization);
                 model.addAttribute("student", studentService.retrieveStudentByLogin(login, request.getSession().getServletContext().getRealPath("/")));
+                model.addAttribute("mChoice", studentService.retrieveStudentByLogin(login, request.getSession().getServletContext().getRealPath("/")).getMChoice());
                 return "responsable/student";
             }
             else{

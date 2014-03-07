@@ -96,9 +96,7 @@ public class Student {
 		return contentious;
 	}
 
-	public void setContentious(List<Contentious> contenious) {
-		this.contentious = contenious;
-	}
+	public void setContentious(List<Contentious> contentious) {this.contentious = contentious;}
 
 	public List<UeResult> getResults() {
 		return results;

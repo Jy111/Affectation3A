@@ -409,7 +409,8 @@ public class AdminController {
 	public String displayStudent(@PathVariable String login, Model model, HttpServletRequest request) {
 		if (configurationService.isRunning()) {
 			model.addAttribute("student", studentService.retrieveStudentByLogin(login, request.getSession().getServletContext().getRealPath("/")));
-			model.addAttribute("allIc", specializationService.findImprovementCourses());
+			model.addAttribute("mChoice", studentService.retrieveStudentByLogin(login, request.getSession().getServletContext().getRealPath("/")).getMChoice());
+            model.addAttribute("allIc", specializationService.findImprovementCourses());
 			model.addAttribute("allJs", specializationService.findJobSectors());
             model.addAttribute("allM", specializationService.findMasters());
             model.addAttribute("master", specializationService.findMasters());
