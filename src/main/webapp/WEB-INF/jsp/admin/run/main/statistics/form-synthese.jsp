@@ -12,7 +12,7 @@
 <script src="${pageContext.request.contextPath}/js/jquery-final/jquery-1.8.3.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/highcharts/highcharts.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/highcharts/exporting.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/js/admin/run/main/statistics/form/pie-chart.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/admin/run/main/statistics/form/column.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="container">

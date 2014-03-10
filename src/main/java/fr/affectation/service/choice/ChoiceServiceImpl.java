@@ -121,15 +121,16 @@ public class ChoiceServiceImpl implements ChoiceService {
     @Transactional(readOnly = true)
     public List<String> findLoginsBySpecialization(Specialization specialization) {
         String querySpecialization = "from MasterChoice ";
+
         querySpecialization += " where choice=:abbreviation";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(querySpecialization);
 
 
         query.setString("abbreviation", specialization.getAbbreviation());
-        List<MasterChoice> allChoices = query.list();
+        List<Choice> allChoices = query.list();
         List<String> allLogins = new ArrayList<String>();
-        for (MasterChoice choice : allChoices) {
+        for (Choice choice : allChoices) {
             allLogins.add(choice.getLogin());
         }
         return allLogins;
@@ -227,11 +228,11 @@ public class ChoiceServiceImpl implements ChoiceService {
 
     @Override
     @Transactional(readOnly = true)
-    public boolean findNotFilledMaster(String login){
+    public int  findNotFilledMaster(String login){
         MasterChoice choice = findMasterChoiceByLogin(login);
-        boolean notFilled = true;
+        int notFilled = 1;
         if (choice != null) {
-            notFilled = false;
+            notFilled = 0;
         }
         return notFilled;
     }

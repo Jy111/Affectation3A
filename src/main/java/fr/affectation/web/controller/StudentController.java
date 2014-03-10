@@ -126,7 +126,7 @@ public class StudentController {
 
 			List<Integer> notFilledJs = choiceService.findElementNotFilledJobSector(login);
 			List<Integer> notFilledIc = choiceService.findElementNotFilledImprovementCourse(login);
-            boolean notFilledM = choiceService.findNotFilledMaster(login);
+            int notFilledM = choiceService.findNotFilledMaster(login);
 
 			String nfJs = "Vous n'avez pas fait de choix ";
 			int index = 0;

@@ -39,7 +39,7 @@ public interface ChoiceService {
 	
 	public List<Integer> findElementNotFilledJobSector(String login);
 
-    public boolean findNotFilledMaster(String login);
+    public int findNotFilledMaster(String login);
 	
 	public Map<String, List<String>> findChoiceRepartitionKnowingOne(int knownChoice, int wantedChoice, String abbreviation, int specializationType);
 	

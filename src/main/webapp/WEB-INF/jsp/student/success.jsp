@@ -30,11 +30,12 @@
 						${notFilledJs}
 					</div>
 				</c:if>
-                <c:if test="${notFilledMaster}">
+                <c:if test="${mChoice == null}">
                     <div class="alert alert-error">
                         <h4>Master</h4>
                             ${notFilledM}
                     </div>
+
                 </c:if>
 				<c:if test="${(!hasFilledLetterIc) || ((!hasFilledLetterJs) || (!hasFilledResume))}">
 					<div class="alert alert-error">

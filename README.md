@@ -56,23 +56,3 @@ L'application se déploie sur /affectation3A (configuré dans le pom.xml). Si ce
 * la valeur du champ path dans le fichier src/main/webapp/WEB-INF/affectation-servlet.xml
 * remplacer /affectation3A par le vrai chemin dans src/main/webapp/css/select3.css
 
-
-***************************************************************
-A faire:
-
-modifier web-inf/jsp/student/form.jsp --> FAIT
-modifier web-inf/jsp/student/success.jsp  --> BUG boolean
-
-modifier web-inf/jsp/admin/common/edit-specialization.jsp  --> inutile utilisation de edit-master.jsp
-modifier web-inf/jsp/admin/config/index.jsp   --> FAIT
-
-modifier web-inf/jsp/admin/run/main/choices -> add master (details + synthese)
-
-modifier web-inf/jsp/admin/run/main/student/edit-form.jsp      --> FAIT
-modifier web-inf/jsp/admin/run/main/student/student.jsp       --> BUG
-
-modifier web-inf/jsp/admin/run/settings/specializations.jsp
-
-modifier web-inf/jsp/responsable/student.jsp   --> BUG
-
-REMARQUE: web-inf/jsp/admin/run/main/student/student.jsp <=>  web-inf/jsp/responsable/student.jsp

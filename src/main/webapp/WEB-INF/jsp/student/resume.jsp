@@ -13,7 +13,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery-final/jquery-1.8.3.min.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/js/highcharts/highcharts.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/js/highcharts/exporting.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/js/admin/run/main/statistics/choice/pie-chart.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/admin/run/main/statistics/choice/column.js" type="text/javascript"></script>
 
 </head>
 <body>
@@ -42,9 +42,9 @@
 
                 </ul>
             </center>
-            <div id="containerPieChartIc" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+            <div id="containerColumnChartIc" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
             <legend></legend>
-            <div id="containerPieChartJs" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+            <div id="containerColumnChartJs" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
         </div>
 
 

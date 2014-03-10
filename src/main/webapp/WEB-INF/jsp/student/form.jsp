@@ -248,7 +248,7 @@
                             <c:choose>
                                 <c:when test="${abb == null}">
                                     <label path="<%=strChM%>"><%=strAttrM%></label>
-                                    <form:select id="<%=strIdM%>" path="<%=strChM%>" class="combobox" style="min-width:550px">
+                                    <form:select id="<%=strIdM%>" path="<%=strChM%>" onclass="combobox" style="min-width:550px">
                                         <option>------------------------------------- Pas de choix -------------------------------------</option>
                                         <c:forEach var="m" items="${mAvailable}">
                                             <option>${m.stringForForm}</option>

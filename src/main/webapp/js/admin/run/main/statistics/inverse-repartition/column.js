@@ -1,11 +1,11 @@
 $(function () {
     $(document).ready(function() {
-    	generatePieChart();
+    	generateColumnChart();
     });
     
 });
 
-function generatePieChart() {
+function generateColumnChart() {
 	var chart;
 	var inputs;
 	var render;
@@ -66,7 +66,7 @@ function generatePieChart() {
             }
         },
         plotOptions: {
-            pie: {
+            column: {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
@@ -81,7 +81,7 @@ function generatePieChart() {
         },
     	
         series: [{
-            type: 'pie',
+            type: 'column',
             name: 'Percentage',
             data: dataV
         }]

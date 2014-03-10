@@ -1,11 +1,11 @@
 $(function () {
     $(document).ready(function() {
-    	generatePieChart();
+    	generateColumnChart();
     });
     
 });
 
-function generatePieChart() {	
+function generateColumnChart() {
 	var noSubmission = parseInt(document.getElementById('noSubmission').value);
 	var partialSubmission = parseInt(document.getElementById('partialSubmission').value);
 	var totalSubmission = parseInt(document.getElementById('totalSubmission').value);
@@ -34,7 +34,7 @@ function generatePieChart() {
                 }
             },
             plotOptions: {
-                pie: {
+                column: {
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {
@@ -49,7 +49,7 @@ function generatePieChart() {
             },
         	
             series: [{
-                type: 'pie',
+                type: 'column',
                 name: 'Percentage',
                 data: dataV
             }]
