@@ -225,4 +225,17 @@ public class SpecializationServiceImpl implements SpecializationService {
         session.createQuery("delete from Master").executeUpdate();
 	}
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<String> findImprovementCoursesAbbreviationsFromSuperIc(String abbreviation){
+        List<String> improvementCourseListAbbreviationFromSuperIc = new ArrayList<String>();
+        List<ImprovementCourse> allIc = findImprovementCourses();
+        for (ImprovementCourse improvementCourse : allIc){
+            if (improvementCourse.getSuperIc().equals(this.getImprovementCourseByAbbreviation(abbreviation).getSuperIc())){
+                improvementCourseListAbbreviationFromSuperIc.add(improvementCourse.getAbbreviation());
+            }
+        }
+        return improvementCourseListAbbreviationFromSuperIc;
+    }
+
 }

@@ -56,6 +56,8 @@ public interface SpecializationService {
 	
 	public String findNameFromJsAbbreviation(String abbreviation);
 
+    public List<String> findImprovementCoursesAbbreviationsFromSuperIc(String abbreviation);
+
 
 }
 

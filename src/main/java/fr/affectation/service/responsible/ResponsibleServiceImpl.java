@@ -23,6 +23,9 @@ public class ResponsibleServiceImpl implements ResponsibleService {
 	@Inject
 	private SessionFactory sessionFactory;
 
+    @Inject
+    private SpecializationService specializationService;
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
@@ -68,6 +71,26 @@ public class ResponsibleServiceImpl implements ResponsibleService {
         }
 
         return improvementCourseAndJobSectorListAbbreviation;
+
+
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ArrayList<String> whichImprovementCourse(String login){
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(ImprovementCourse.class);
+        criteria.add(Restrictions.eq("responsibleLogin", login));
+
+        ArrayList<String> improvementCourseListAbbreviation = new ArrayList<String>();
+
+        for(ImprovementCourse improvementCourse : (List<ImprovementCourse>)criteria.list())
+        {
+            improvementCourseListAbbreviation.add(improvementCourse.getAbbreviation());
+        }
+
+        return improvementCourseListAbbreviation;
 
 
 
@@ -119,5 +142,21 @@ public class ResponsibleServiceImpl implements ResponsibleService {
         ArrayList<String> improvementCourseAndJobSectorListAbbreviation = whichSpecialization(login);
         return improvementCourseAndJobSectorListAbbreviation.contains(abbreviation);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean isCoResponsibleFor(String login, String abbreviation){
+        ArrayList<String> improvementCourseListAbbreviation = whichImprovementCourse(login);
+        boolean coResponsible = false;
+        for (String anImprovementCourseAbbreviation : improvementCourseListAbbreviation) {
+            ImprovementCourse improvementCourse = specializationService.getImprovementCourseByAbbreviation(anImprovementCourseAbbreviation);
+            if (improvementCourse.getSuperIc().equals(specializationService.getImprovementCourseByAbbreviation(abbreviation).getSuperIc())) {
+                coResponsible = true;
+            }
+        }
+        return coResponsible;
+    }
+
+
 
 }

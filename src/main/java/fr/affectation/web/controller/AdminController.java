@@ -377,11 +377,11 @@ public class AdminController {
     @RequestMapping("/config/delete/master/{abbreviation}")
     public String deleteMaster(@PathVariable String abbreviation, RedirectAttributes redirectAttributes) {
         if (!configurationService.isRunning()) {
-            Specialization specialization = specializationService.getJobSectorByAbbreviation(abbreviation);
+            Specialization specialization = specializationService.getMasterByAbbreviation(abbreviation);
             specializationService.delete(specialization);
             boolean run = configurationService.isRunning();
             if (!run) {
-                redirectAttributes.addFlashAttribute("successM", "La filière métier <b>" + specialization.getName() + "</b> a bien été supprimée.");
+                redirectAttributes.addFlashAttribute("successM", "Le Master <b>" + specialization.getName() + "</b> a bien été supprimé.");
             }
             return "redirect:/admin/config";
         } else {

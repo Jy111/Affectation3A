@@ -11,6 +11,8 @@ public interface ResponsibleService {
 
     public ArrayList<String> whichSpecialization(String login);
 
+    public ArrayList<String> whichImprovementCourse(String login);
+
     public String forWhichSpecialization(String login);
 
 	public int forWhichSpecializationType(String login);
@@ -18,5 +20,7 @@ public interface ResponsibleService {
 	public boolean isResponsible(String login);
 
     public boolean isResponsibleFor(String login, String abbreviation);
+
+    public boolean isCoResponsibleFor(String login, String abbreviation);
 
 }

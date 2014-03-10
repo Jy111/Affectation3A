@@ -40,6 +40,10 @@
 							<li><a href="${pageContext.request.contextPath}/responsable/run/statistics/${specialization.abbreviation}/inverse-repartition">Répartition filières</a></li>
 						</c:otherwise>
 					</c:choose>
+                    <li class="nav-header">Parcours associés</li>
+                    <c:forEach var="abb" items="${abbFromSuper}">
+                        <li><a href = "${pageContext.request.contextPath}/responsable/${abb}/1">${abb}</a></li>
+                    </c:forEach>
 				</ul>
 			</div>
 
