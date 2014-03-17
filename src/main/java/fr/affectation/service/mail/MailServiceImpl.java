@@ -7,7 +7,10 @@ import javax.inject.Inject;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4a5f279c9a9869c58bea28c4bdc6a78147484cbf
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;

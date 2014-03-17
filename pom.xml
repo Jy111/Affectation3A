@@ -164,7 +164,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
+<<<<<<< HEAD
 			<version>3.2.8.RELEASE</version>
+=======
+			<version>2.5</version>
+>>>>>>> 4a5f279c9a9869c58bea28c4bdc6a78147484cbf
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -184,12 +188,15 @@
 			<version>3.2.8.RELEASE</version>
 			<scope>compile</scope>
 		</dependency>
+<<<<<<< HEAD
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>3.2.8.RELEASE</version>
             <scope>compile</scope>
         </dependency>
+=======
+>>>>>>> 4a5f279c9a9869c58bea28c4bdc6a78147484cbf
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
