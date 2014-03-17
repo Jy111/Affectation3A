@@ -1161,7 +1161,9 @@ public class AdminController {
 	public void initialize() {
 		configurationService.initializeFromDataBase();
         adminService.save("jfeutrie");
-        adminService.save("admin");
+        adminService.save("rbouley");
+        adminService.save("jmrossi");
+
 	}
 
 }
