@@ -29,8 +29,8 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public List<SimpleStudent> findStudentsConcerned() {
-		String requeteEleves = "SELECT nom, uid FROM z720_choix3A_eleves WHERE nom IN "
-				+ "(SELECT nom FROM 720_choix3A_gpa WHERE cycle=:cycle AND sem='SEM-7') AND entree_fil NOT IN ('Etranger', 'Crédits', 'DD', 'Erasmus hors CEE')";
+		String requeteEleves = "SELECT nom, uid FROM \"z720_choix3A_eleves\" WHERE nom IN "
+				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7') AND entree_fil NOT IN ('Etranger', 'Crédits', 'DD', 'Erasmus hors CEE')";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter.put("cycle", getCurrentCycle());
 		List<Map<String, Object>> studentMap = namedParameterjdbcTemplate.queryForList(requeteEleves, namedParameter);
@@ -39,8 +39,8 @@ public class NewAgapServiceImpl implements AgapService {
 			students.add(new SimpleStudent((String) map.get("uid"), (String) map.get("nom")));
 		}
 		
-		requeteEleves = "SELECT nom, uid FROM z720_choix3A_eleves WHERE nom IN (SELECT nom FROM 720_choix3A_cesure WHERE nom IN "
-				+ "(SELECT nom FROM 720_choix3A_gpa WHERE cycle=:cycle AND sem='SEM-7'))";
+		requeteEleves = "SELECT nom, uid FROM \"z720_choix3A_eleves\" WHERE nom IN (SELECT nom FROM \"720_choix3A_cesure\" WHERE nom IN "
+				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7'))";
 		namedParameter = new HashMap<String, String>();
 		namedParameter.put("cycle", getLastCycle());
 		studentMap = namedParameterjdbcTemplate.queryForList(requeteEleves, namedParameter);
@@ -52,8 +52,8 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public List<String> findStudentConcernedLogins() {
-		String requeteEleves = "SELECT uid FROM z720_choix3A_eleves WHERE nom IN "
-				+ "(SELECT nom FROM 720_choix3A_gpa WHERE cycle=:cycle AND sem='SEM-7') AND entree_fil NOT IN ('Etranger', 'Crédits', 'DD', 'Erasmus hors CEE')";
+		String requeteEleves = "SELECT uid FROM \"z720_choix3A_eleves\" WHERE nom IN "
+				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7') AND entree_fil NOT IN ('Etranger', 'Crédits', 'DD', 'Erasmus hors CEE')";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter.put("cycle", getCurrentCycle());
 		List<Map<String, Object>> studentMap = namedParameterjdbcTemplate.queryForList(requeteEleves, namedParameter);
@@ -62,8 +62,8 @@ public class NewAgapServiceImpl implements AgapService {
 			studentLogins.add((String) map.get("uid"));
 		}
 		
-		requeteEleves = "SELECT uid FROM z720_choix3A_eleves WHERE nom IN (SELECT nom FROM 720_choix3A_cesure WHERE nom IN "
-				+ "(SELECT nom FROM 720_choix3A_gpa WHERE cycle=:cycle AND sem='SEM-7'))";
+		requeteEleves = "SELECT uid FROM \"z720_choix3A_eleves\" WHERE nom IN (SELECT nom FROM \"720_choix3A_cesure\" WHERE nom IN "
+				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7'))";
 		namedParameter = new HashMap<String, String>();
 		namedParameter.put("cycle", getLastCycle());
 		studentMap = namedParameterjdbcTemplate.queryForList(requeteEleves, namedParameter);
@@ -75,8 +75,8 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public List<String> findCurrentPromotionStudentLogins() {
-		String requeteEleves = "SELECT uid FROM z720_choix3A_eleves WHERE nom IN "
-				+ "(SELECT nom FROM 720_choix3A_gpa WHERE cycle=:cycle AND sem='SEM-7') AND entree_fil NOT IN ('Etranger', 'Crédits', 'DD', 'Erasmus hors CEE')";
+		String requeteEleves = "SELECT uid FROM \"z720_choix3A_eleves\" WHERE nom IN "
+				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7') AND entree_fil NOT IN ('Etranger', 'Crédits', 'DD', 'Erasmus hors CEE')";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter.put("cycle", getCurrentCycle());
 		List<Map<String, Object>> studentMap = namedParameterjdbcTemplate.queryForList(requeteEleves, namedParameter);
@@ -89,8 +89,8 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public List<String> findCesureStudentLogins() {
-		String requeteEleves = "SELECT uid FROM z720_choix3A_eleves WHERE nom IN (SELECT nom FROM 720_choix3A_cesure WHERE nom IN "
-				+ "(SELECT nom FROM 720_choix3A_gpa WHERE cycle=:cycle AND sem='SEM-7'))";
+		String requeteEleves = "SELECT uid FROM \"z720_choix3A_eleves\" WHERE nom IN (SELECT nom FROM \"720_choix3A_cesure\" WHERE nom IN "
+				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7'))";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter = new HashMap<String, String>();
 		namedParameter.put("cycle", getLastCycle());
@@ -104,8 +104,8 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public List<SimpleStudent> findCurrentPromotionSimpleStudents() {
-		String requeteEleves = "SELECT uid, nom FROM z720_choix3A_eleves WHERE nom IN "
-				+ "(SELECT nom FROM 720_choix3A_gpa WHERE cycle=:cycle AND sem='SEM-7') AND entree_fil NOT IN ('Etranger', 'Crédits', 'DD', 'Erasmus hors CEE')";
+		String requeteEleves = "SELECT uid, nom FROM \"z720_choix3A_eleves\" WHERE nom IN "
+				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7') AND entree_fil NOT IN ('Etranger', 'Crédits', 'DD', 'Erasmus hors CEE')";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter.put("cycle", getCurrentCycle());
 		List<Map<String, Object>> studentMap = namedParameterjdbcTemplate.queryForList(requeteEleves, namedParameter);
@@ -118,8 +118,8 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public List<SimpleStudent> findCesureSimpleStudents() {
-		String requeteEleves = "SELECT uid, nom FROM z720_choix3A_eleves WHERE nom IN (SELECT nom FROM 720_choix3A_cesure WHERE nom IN "
-				+ "(SELECT nom FROM 720_choix3A_gpa WHERE cycle=:cycle AND sem='SEM-7'))";
+		String requeteEleves = "SELECT uid, nom FROM \"z720_choix3A_eleves\" WHERE nom IN (SELECT nom FROM \"720_choix3A_cesure\" WHERE nom IN "
+				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7'))";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter = new HashMap<String, String>();
 		namedParameter.put("cycle", getLastCycle());
@@ -133,7 +133,7 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public String findNameFromLogin(String login) {
-		String query = "SELECT nom FROM z720_choix3A_eleves WHERE uid=:uid";
+		String query = "SELECT nom FROM \"z720_choix3A_eleves\" WHERE uid=:uid";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter.put("uid", login);
 		List<Map<String, Object>> studentMap = namedParameterjdbcTemplate.queryForList(query, namedParameter);
@@ -142,7 +142,7 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public List<Contentious> findContentious(String login) {
-		String queryContentious = "SELECT * FROM 720_choix3A_contentieux WHERE nom IN (SELECT nom FROM z720_choix3A_eleves WHERE uid=:login)";
+		String queryContentious = "SELECT * FROM \"720_choix3A_contentieux\" WHERE nom IN (SELECT nom FROM \"z720_choix3A_eleves\" WHERE uid=:login)";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter.put("login", login);
 		List<Map<String, Object>> allContentiousMap = namedParameterjdbcTemplate.queryForList(queryContentious, namedParameter);
@@ -160,7 +160,7 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public List<Float> findGpaMeans(String login) {
-		String requeteEleves = "SELECT * FROM 720_choix3A_gpa WHERE nom IN (SELECT nom FROM z720_choix3A_eleves WHERE uid=:login) and sem IN ('SEM-5', 'SEM-6', 'SEM-7')";
+		String requeteEleves = "SELECT * FROM \"720_choix3A_gpa\" WHERE nom IN (SELECT nom FROM \"z720_choix3A_eleves\" WHERE uid=:login) and sem IN ('SEM-5', 'SEM-6', 'SEM-7')";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter.put("login", login);
 		List<Map<String, Object>> gpaMap = namedParameterjdbcTemplate.queryForList(requeteEleves, namedParameter);
@@ -203,7 +203,7 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public List<UeResult> findUeResults(String login) {
-		String queryGradeGpa = "SELECT * FROM 720_choix3A_notes_details WHERE nom IN (SELECT nom FROM z720_choix3A_eleves WHERE uid=:login)";
+		String queryGradeGpa = "SELECT * FROM \"720_choix3A_notes_details\" WHERE nom IN (SELECT nom FROM \"z720_choix3A_eleves\" WHERE uid=:login)";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter.put("login", login);
 		List<Map<String, Object>> resultsMap = namedParameterjdbcTemplate.queryForList(queryGradeGpa, namedParameter);
@@ -231,7 +231,7 @@ public class NewAgapServiceImpl implements AgapService {
 	public Map<String, String> findNamesForAListOfLogins(List<String> allLogins) {
 		Map<String, String> results = new HashMap<String, String>();
 		if (allLogins.size() > 0){
-			String query = "SELECT nom, uid FROM z720_choix3A_eleves WHERE uid IN (";
+			String query = "SELECT nom, uid FROM \"z720_choix3A_eleves\" WHERE uid IN (";
 			int size = allLogins.size();
 			int index = 0;
 			for (String login : allLogins){
@@ -252,16 +252,16 @@ public class NewAgapServiceImpl implements AgapService {
 
 	@Override
 	public boolean isStudent(String login) {
-		String query = "SELECT count(*) FROM z720_choix3A_eleves WHERE nom IN "
-				+ "(SELECT nom FROM 720_choix3A_gpa WHERE cycle=:cycle AND sem='SEM-7') AND entree_fil NOT IN ('Etranger', 'Crédits', 'DD', 'Erasmus hors CEE') AND uid=:uid";
+		String query = "SELECT count(*) FROM \"z720_choix3A_eleves\" WHERE nom IN "
+				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7') AND entree_fil NOT IN ('Etranger', 'Crédits', 'DD', 'Erasmus hors CEE') AND uid=:uid";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter.put("cycle", getCurrentCycle());
 		namedParameter.put("uid", login);
 		if (namedParameterjdbcTemplate.queryForInt(query, namedParameter) > 0){
 			return true;
 		}
-		query = "SELECT count(*) FROM z720_choix3A_eleves WHERE nom IN (SELECT nom FROM 720_choix3A_cesure WHERE nom IN "
-				+ "(SELECT nom FROM 720_choix3A_gpa WHERE cycle=:cycle AND sem='SEM-7')) AND uid=:uid";
+		query = "SELECT count(*) FROM \"z720_choix3A_eleves\" WHERE nom IN (SELECT nom FROM \"720_choix3A_cesure\" WHERE nom IN "
+				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7')) AND uid=:uid";
 		namedParameter.put("cycle", getLastCycle());
 		namedParameter.put("uid", login);
 		if (namedParameterjdbcTemplate.queryForInt(query, namedParameter) > 0){
@@ -272,7 +272,7 @@ public class NewAgapServiceImpl implements AgapService {
 	
 	@Override
 	public String findOriginFromLogin(String login) {
-		String query = "SELECT entree_fil FROM z720_choix3A_eleves WHERE uid=:uid";
+		String query = "SELECT entree_fil FROM \"z720_choix3A_eleves\" WHERE uid=:uid";
 		Map<String, String> namedParameter = new HashMap<String, String>();
 		namedParameter.put("uid", login);
 		List<Map<String, Object>> studentMap = namedParameterjdbcTemplate.queryForList(query, namedParameter);
