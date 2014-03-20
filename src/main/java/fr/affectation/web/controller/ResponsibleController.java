@@ -78,8 +78,9 @@ public class ResponsibleController {
 			String login = auth.getName();
             if (responsibleService.isResponsibleFor(login, abbreviation) || responsibleService.isCoResponsibleFor(login, abbreviation)){
                 Specialization specialization;
-                model.addAttribute("abbFromSuper", specializationService.findImprovementCoursesAbbreviationsFromSuperIc(abbreviation));
+
                 if (specializationService.getSpecializationByAbbreviation(abbreviation) == Specialization.IMPROVEMENT_COURSE) {
+                    model.addAttribute("abbFromSuper", specializationService.findImprovementCoursesAbbreviationsFromSuperIc(abbreviation));
                     specialization = specializationService.getImprovementCourseByAbbreviation(abbreviation);
                 }
                 else {
@@ -262,4 +263,23 @@ public class ResponsibleController {
 			return "redirect:/responsable/";
 		}
 	}
+
+    @RequestMapping("/resume/choice{choice}")
+    public String showResumeForChoice(@PathVariable int choice, Model model){
+        if (configurationService.isSubmissionAvailable()){
+
+            model.addAttribute("choiceNumber", choice);
+            model.addAttribute("simpleImprovementCourses", studentService.findSimpleIcStats(choice));
+            model.addAttribute("simpleJobSectors", studentService.findSimpleJsStats(choice));
+            model.addAttribute("allIc", specializationService.findImprovementCourses());
+            model.addAttribute("allJs", specializationService.findJobSectors());
+            model.addAttribute("allM", specializationService.findMasters());
+
+            return "responsable/resume";
+
+        } else{
+            return "responsable/noSubmission";
+        }
+
+    }
 }

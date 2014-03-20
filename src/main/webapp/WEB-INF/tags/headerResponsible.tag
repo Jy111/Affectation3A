@@ -6,6 +6,7 @@
 		<a href="${pageContext.request.contextPath}/responsable/" class="brand"> Affectation 3A, ${title} </a>
 		<div class="container pull-right">
 			<ul class="nav">
+                <li><a href="${pageContext.request.contextPath}/responsable/resume/choice1">Résumé</a></li>
 				<li><a href="${pageContext.request.contextPath}/logout">Deconnexion</a></li>
 			</ul>
 		</div>

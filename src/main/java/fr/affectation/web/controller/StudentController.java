@@ -261,7 +261,6 @@ public class StudentController {
     @RequestMapping("/resume/choice{choice}")
     public String showResumeForChoice(@PathVariable int choice, Model model){
         if (configurationService.isSubmissionAvailable()){
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
             model.addAttribute("choiceNumber", choice);
             model.addAttribute("simpleImprovementCourses", studentService.findSimpleIcStats(choice));

@@ -38,7 +38,7 @@ public class NewAgapServiceImpl implements AgapService {
 		for (Map<String, Object> map : studentMap) {
 			students.add(new SimpleStudent((String) map.get("uid"), (String) map.get("nom")));
 		}
-		
+
 		requeteEleves = "SELECT nom, uid FROM \"z720_choix3A_eleves\" WHERE nom IN (SELECT nom FROM \"720_choix3A_cesure\" WHERE nom IN "
 				+ "(SELECT nom FROM \"720_choix3A_gpa\" WHERE cycle=:cycle AND sem='SEM-7'))";
 		namedParameter = new HashMap<String, String>();
