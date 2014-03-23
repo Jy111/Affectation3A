@@ -33,6 +33,12 @@ function generateColumnChart() {
                     return '<b>' + this.point.name + "</b><br />Nombre d'élèves : <b>" + this.point.y + '</b><br />' + 'Proportion : <b>' + Math.round(this.point.percentage*100)/100 + '</b>%<br />';
                 }
             },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Elèves inscrits'
+                }
+            },
             plotOptions: {
                 column: {
                     allowPointSelect: true,
