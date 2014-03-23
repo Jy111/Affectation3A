@@ -32,10 +32,10 @@
                     <c:forEach var="i" begin="1" end="5" step="1">
                         <c:choose>
                             <c:when test="${i == choiceNumber}">
-                                <li class="active"><a href="${pageContext.request.contextPath}/student/resume/choice${i}">Choix ${i}</a></li>
+                                <li class="active"><a href="${pageContext.request.contextPath}/responsable/resume/choice${i}">Choix ${i}</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="${pageContext.request.contextPath}/student/resume/choice${i}">Choix ${i}</a></li>
+                                <li><a href="${pageContext.request.contextPath}/responsable/resume/choice${i}">Choix ${i}</a></li>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
