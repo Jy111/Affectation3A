@@ -7,6 +7,7 @@ import fr.affectation.domain.choice.Choice;
 import fr.affectation.domain.choice.ImprovementCourseChoice;
 import fr.affectation.domain.choice.JobSectorChoice;
 import fr.affectation.domain.choice.MasterChoice;
+import fr.affectation.domain.specialization.Master;
 import fr.affectation.domain.specialization.Specialization;
 
 public interface ChoiceService {
@@ -33,7 +34,7 @@ public interface ChoiceService {
 	
 	public List<String> findLoginsByOrderChoiceAndSpecialization(int orderChoice, Specialization specialization);
 
-    public List<String> findLoginsBySpecialization(Specialization specialization);
+    public List<String> findLoginsByMaster(Master master);
 	
 	public List<Integer> findElementNotFilledImprovementCourse(String login);
 	

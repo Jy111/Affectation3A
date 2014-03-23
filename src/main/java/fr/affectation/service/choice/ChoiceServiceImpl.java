@@ -20,6 +20,7 @@ import fr.affectation.domain.choice.Choice;
 import fr.affectation.domain.choice.ImprovementCourseChoice;
 import fr.affectation.domain.choice.JobSectorChoice;
 import fr.affectation.domain.specialization.JobSector;
+import fr.affectation.domain.specialization.Master;
 import fr.affectation.domain.specialization.Specialization;
 
 @Service
@@ -92,8 +93,8 @@ public class ChoiceServiceImpl implements ChoiceService {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from MasterChoice");
 
-        MasterChoice choice = (MasterChoice) query.uniqueResult();
-        return choice;
+        MasterChoice masterChoice = (MasterChoice) query.uniqueResult();
+        return masterChoice;
     }
 
 	@SuppressWarnings("unchecked")
@@ -119,7 +120,7 @@ public class ChoiceServiceImpl implements ChoiceService {
     @SuppressWarnings("unchecked")
     @Override
     @Transactional(readOnly = true)
-    public List<String> findLoginsBySpecialization(Specialization specialization) {
+    public List<String> findLoginsByMaster(Master master) {
         String querySpecialization = "from MasterChoice ";
 
         querySpecialization += " where choice=:abbreviation";
@@ -127,11 +128,11 @@ public class ChoiceServiceImpl implements ChoiceService {
         Query query = session.createQuery(querySpecialization);
 
 
-        query.setString("abbreviation", specialization.getAbbreviation());
-        List<Choice> allChoices = query.list();
+        query.setString("abbreviation", master.getAbbreviation());
+        List<MasterChoice> allChoices = query.list();
         List<String> allLogins = new ArrayList<String>();
-        for (Choice choice : allChoices) {
-            allLogins.add(choice.getLogin());
+        for (MasterChoice masterChoice : allChoices) {
+            allLogins.add(masterChoice.getLogin());
         }
         return allLogins;
     }

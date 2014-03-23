@@ -163,8 +163,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
     @Override
-    public List<SimpleStudent> findSimpleStudentsBySpecialization(Specialization specialization) {
-        List<String> allLogins = choiceService.findLoginsBySpecialization(specialization);
+    public List<SimpleStudent> findSimpleStudentsByMaster(Master master) {
+        List<String> allLogins = choiceService.findLoginsByMaster(master);
         List<SimpleStudent> allSimpleStudents = new ArrayList<SimpleStudent>();
         List<String> studentsToExcludeLogins = exclusionService.findStudentToExcludeLogins();
         Map<String, String> nameLoginMap = agapCacheService.findNamesForAListOfLogins(allLogins);
@@ -185,8 +185,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
     @Override
-    public List<String> findLoginsBySpecialization(Specialization specialization) {
-        List<String> allLogins = choiceService.findLoginsBySpecialization(specialization);
+    public List<String> findLoginsByMaster(Master master) {
+        List<String> allLogins = choiceService.findLoginsByMaster(master);
         Collections.sort(allLogins);
         return allLogins;
     }
@@ -262,7 +262,7 @@ public class StudentServiceImpl implements StudentService {
         List<Master> allM = specializationService.findMasters();
         List<List<SimpleStudent>> allStudentsForAllM = new ArrayList<List<SimpleStudent>>();
         for (Master master : allM) {
-            allStudentsForAllM.add(findSimpleStudentsBySpecialization(master));
+            allStudentsForAllM.add(findSimpleStudentsByMaster(master));
         }
         return allStudentsForAllM;
     }

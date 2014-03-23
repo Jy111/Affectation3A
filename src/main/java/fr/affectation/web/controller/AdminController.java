@@ -1049,7 +1049,7 @@ public class AdminController {
             model.addAttribute("allM", specializationService.findMasters());
             model.addAttribute("abbreviation", abbreviation);
             model.addAttribute("specialization", master);
-            model.addAttribute("allStudents", studentService.findSimpleStudentsBySpecialization(master));
+            model.addAttribute("allStudents", studentService.findSimpleStudentsByMaster(master));
             model.addAttribute("running", !configurationService.isValidationForAdminAvailable());
             return "admin/run/main/choices/master/details";
         } else {

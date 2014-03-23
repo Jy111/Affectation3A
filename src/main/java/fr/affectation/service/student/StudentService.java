@@ -3,12 +3,9 @@ package fr.affectation.service.student;
 import java.util.List;
 import java.util.Map;
 
+import fr.affectation.domain.specialization.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import fr.affectation.domain.specialization.ImprovementCourse;
-import fr.affectation.domain.specialization.SimpleSpecializationWithList;
-import fr.affectation.domain.specialization.SimpleSpecializationWithNumber;
-import fr.affectation.domain.specialization.Specialization;
 import fr.affectation.domain.student.SimpleStudent;
 import fr.affectation.domain.student.SimpleStudentWithValidation;
 import fr.affectation.domain.student.Student;
@@ -30,11 +27,11 @@ public interface StudentService {
 
 	public List<SimpleStudent> findSimpleStudentsByOrderChoiceAndSpecialization(int orderChoice, Specialization specialization);
 
-    public List<SimpleStudent> findSimpleStudentsBySpecialization(Specialization specialization);
+    public List<SimpleStudent> findSimpleStudentsByMaster(Master master);
 	
 	public List<String> findLoginsByOrderChoiceAndSpecialization(int orderChoice, Specialization specialization);
 
-    public List<String> findLoginsBySpecialization(Specialization specialization);
+    public List<String> findLoginsByMaster(Master master);
 
 	public List<SimpleStudentWithValidation> findSimpleStudentsWithValidationByOrderChoiceAndSpecialization(int orderChoice, Specialization specialization);
 
