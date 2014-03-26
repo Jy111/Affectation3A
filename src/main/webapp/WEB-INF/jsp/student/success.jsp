@@ -135,12 +135,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="span2 offset5">
-                <div>
-                    <a href="${pageContext.request.contextPath}/student/resume/choice1" class="btn btn-success">Résumé</a>
-                </div>
-            </div>
-            <div class="span2 offset3">
+            <div class="span2 offset10">
 				<div class="pull right">
 					<a href="${pageContext.request.contextPath}/logout" class="btn btn-danger"><i class="icon-white icon-off"></i> Deconnexion</a>
 				</div>

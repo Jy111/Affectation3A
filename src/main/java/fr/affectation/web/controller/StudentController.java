@@ -258,23 +258,6 @@ public class StudentController {
 			return "student/noSubmission";
 		}
 	}
-    @RequestMapping("/resume/choice{choice}")
-    public String showResumeForChoice(@PathVariable int choice, Model model){
-        if (configurationService.isSubmissionAvailable()){
 
-            model.addAttribute("choiceNumber", choice);
-            model.addAttribute("simpleImprovementCourses", studentService.findSimpleIcStats(choice));
-            model.addAttribute("simpleJobSectors", studentService.findSimpleJsStats(choice));
-            model.addAttribute("allIc", specializationService.findImprovementCourses());
-            model.addAttribute("allJs", specializationService.findJobSectors());
-            model.addAttribute("allM", specializationService.findMasters());
-
-            return "student/resume";
-
-        } else{
-            return "student/noSubmission";
-        }
-
-    }
 
 }
